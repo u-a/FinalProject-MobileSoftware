@@ -24,6 +24,7 @@
                     android:src="@drawable/tots"
                     android:scaleType="fitXY"
                     android:contentDescription="Image of Event"
+                    android:id="@+id/eventImage"
 
                     />
 
