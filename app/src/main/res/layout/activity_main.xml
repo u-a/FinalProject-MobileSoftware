@@ -8,23 +8,65 @@
     android:orientation="vertical"
     tools:context="com.tusk.baton.finalproject.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        android:title="@string/app_name"
+        />
+
+    <ScrollView
+        android:id="@+id/scrollItem"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
 
-        <TextView
-            android:id="@+id/message"
+        >
+        <LinearLayout
+            android:id="@+id/cardStack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/title_home" />
+            android:orientation="vertical"
+            >
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="200dp"
+            card_view:cardCornerRadius="20dp"
+            card_view:cardElevation="2dp"
+            card_view:cardBackgroundColor ="@color/cardview_shadow_end_color"
+            >
 
-    </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/tots"
+                android:scaleType="fitXY"
+                android:contentDescription="Image of Event"
+
+                />
+
+            <TextView
+                android:id="@+id/info_text"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hello This is a test"
+                />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
