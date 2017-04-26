@@ -1,5 +1,8 @@
 package com.tusk.baton.finalproject;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -7,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,17 +27,20 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
-    private static final String TAG = "Menu~: ";
-    HashMap<String, Fragment> fragmentHashMap;
-
-
+    private static final String TAG = "MainActivity~~";
+    private HashMap<String, Fragment> fragmentHashMap;
+    private Location currentLocation;
     private Toolbar myToolbar;
+    private GPSManager gpsManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        gpsManager = new GPSManager(this);
+        Log.d(TAG, "onCreate: GPSManager initialized");
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -113,6 +120,48 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+    }
+
+    /**
+     * Callback for the result from requesting permissions. This method
+     * is invoked for every call on {@link #requestPermissions(String[], int)}.
+     * <p>
+     * <strong>Note:</strong> It is possible that the permissions request interaction
+     * with the user is interrupted. In this case you will receive empty permissions
+     * and results arrays which should be treated as a cancellation.
+     * </p>
+     *
+     * @param requestCode  The request code passed in {@link #requestPermissions(String[], int)}.
+     * @param permissions  The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *                     which is either {@link PackageManager#PERMISSION_GRANTED}
+     *                     or {@link PackageManager#PERMISSION_DENIED}. Never null.
+     * @see #requestPermissions(String[], int)
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        gpsManager.register();
+
+    }
+
+    public void updateGPSLocation(Location lastKnownLocation) {
+        currentLocation = lastKnownLocation;
+        Log.d(TAG, "updateGPSLocation: Lat="+lastKnownLocation.getLatitude() + " Long=" + lastKnownLocation.getLongitude());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gpsManager.unregister();
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
@@ -141,4 +190,5 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
 
     }
+
 }
