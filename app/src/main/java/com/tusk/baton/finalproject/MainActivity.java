@@ -23,12 +23,11 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
+    private static final String TAG = "Menu~: ";
     HashMap<String, Fragment> fragmentHashMap;
 
-    private TextView mTextMessage;
-    private CardView eventCard;
-    private  Toolbar myToolbar;
 
+    private Toolbar myToolbar;
 
 
     @Override
@@ -57,14 +56,13 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         fragmentHashMap.put(getResourceString(R.string.search), frag5);
         setFragment(frag1);
 
-        eventCard = (CardView) findViewById(R.id.card_view);
-        mTextMessage = (TextView) eventCard.findViewById(R.id.info_text);
+
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+
 
     }
 
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
     private void setFragment(Fragment inFrag) {
         FragmentManager fm = getSupportFragmentManager();
-        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
         FragmentTransaction ft = fm.beginTransaction();
@@ -130,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_profile:
-                Log.d(TAG, "User Profile" );
+                Log.d(TAG, "User Profile");
                 System.out.println("Pressed User Profile");
                 return true;
 
@@ -142,5 +140,5 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         }
 
 
-
+    }
 }
