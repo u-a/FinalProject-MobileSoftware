@@ -27,8 +27,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
-    private ViewGroup cardStack;
-    private EventList eventList;
+    private ViewGroup insertFrag;
+    private EventList relayClass;
     private static final String TAG = "Menu~: ";
     HashMap<String, Fragment> fragmentHashMap;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventList = new EventList();
+        relayClass = new EventList();
         setContentView(R.layout.activity_main);
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -64,11 +64,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        cardStack = (LinearLayout) findViewById(R.id.cardStack);
-        for (int i = 0; i < 3; i++) {
-            View child = getLayoutInflater().inflate(R.layout.event_layout, null);
-            cardStack.addView(eventList.addCard(child));
-        }
+        insertFrag = (LinearLayout) findViewById(R.id.linActMain);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
             fm.popBackStack();
         }
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.content, inFrag, inFrag.getTag());
+        ft.replace(R.id.linActMain, inFrag, inFrag.getTag());
         ft.commit();
     }
 

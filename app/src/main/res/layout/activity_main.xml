@@ -25,11 +25,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
 
-    </FrameLayout>
-
         >
         <LinearLayout
-            android:id="@+id/cardStack"
+            android:id="@+id/linActMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

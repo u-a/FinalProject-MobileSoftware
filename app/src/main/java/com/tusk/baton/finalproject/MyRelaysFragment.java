@@ -3,11 +3,14 @@ package com.tusk.baton.finalproject;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -22,7 +25,9 @@ public class MyRelaysFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private CardView eventCard;
     private TextView mTextMessage;
-
+    EventList relayList;
+    LinearLayout cardStack;
+    View view;
 
     public MyRelaysFragment() {
         // Required empty public constructor
@@ -32,15 +37,21 @@ public class MyRelaysFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("on create view my relays");
+        Log.d("YOOOO", "on create view my relays");
+        relayList = new EventList();
+        view = inflater.inflate(R.layout.fragment_my_relays, container, false);
+        cardStack = (LinearLayout) view.findViewById(R.id.cardStack);
 
-        View view = inflater.inflate(R.layout.fragment_my_relays, container, false);
+        View child = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
+        child = relayList.addCard(child);
+        mTextMessage = (TextView) child.findViewById(R.id.info_text);
+        mTextMessage.setText("Test, probably going to set this in the relayList class");
+        cardStack.addView(child);
+//        eventCard = (CardView) view.findViewById(R.id.card_view);
+//        mTextMessage = (TextView) eventCard.findViewById(R.id.info_text);
 
-        eventCard = (CardView) view.findViewById(R.id.card_view);
-
-        mTextMessage = (TextView) eventCard.findViewById(R.id.info_text);
-
-        //why do we return this instead of view, like homework2
-        return inflater.inflate(R.layout.fragment_my_relays, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
