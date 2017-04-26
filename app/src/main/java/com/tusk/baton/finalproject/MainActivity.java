@@ -1,5 +1,6 @@
 package com.tusk.baton.finalproject;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -19,29 +20,35 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "Menu~: ";
     HashMap<String, Fragment> fragmentHashMap;
-
-
     private Toolbar myToolbar;
-
+    private Intent userProfileIntent;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        createUser();
+        //initializes all the main activity UI elements
+        //example: toolbar at the top and navigationbar
+        initUI();
+        //Same as above for the 5 fragments
+        initFragments();
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(R.drawable.ic_dashboard_black_24dp);
+        setupUserProfileIntent();
 
+    }
 
+    private void initFragments() {
         MyRelaysFragment frag1 = new MyRelaysFragment();
         TrendingRelaysFragment frag2 = new TrendingRelaysFragment();
         TrendingLocationsFragment frag3 = new TrendingLocationsFragment();
@@ -56,13 +63,17 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         fragmentHashMap.put(getResourceString(R.string.search), frag5);
         setFragment(frag1);
 
+    }
 
 
+    private void initUI() {
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(R.drawable.ic_dashboard_black_24dp);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
 
     }
 
@@ -130,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
             case R.id.user_profile:
                 Log.d(TAG, "User Profile");
                 System.out.println("Pressed User Profile");
+                startActivity(userProfileIntent);
                 return true;
 
             default:
@@ -140,5 +152,20 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         }
 
 
+    }
+
+    private void setupUserProfileIntent() {
+        userProfileIntent = new Intent(this, UserProfileActivity.class);
+//        userProfileIntent.putExtra("name", user.getName());
+//        userProfileIntent.putExtra("user_name", user.getUsername());
+//        userProfileIntent.putExtra("phone_number", user.getPhoneNumber());
+//        userProfileIntent.putExtra("profile_picture", user.getProfilePicture());
+    }
+
+    private void createUser() {
+        user = User.getInstance();
+        user.setName(getResources().getString(R.string.name));
+        user.setUsername(getResources().getString(R.string.user_name));
+        user.setPhoneNumber( getResources().getString(R.string.phone_number));
     }
 }

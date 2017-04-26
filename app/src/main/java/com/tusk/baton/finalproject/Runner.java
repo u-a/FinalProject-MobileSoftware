@@ -6,22 +6,23 @@ package com.tusk.baton.finalproject;
 
 public class Runner {
     private String name;
-    private int id;
+    private String id;
+
     int checkedStatus;
     MyLocation currentLocation;
 
     public Runner() {
-        initialize("", 0, 0, new MyLocation());
+        initialize("", "", 0, new MyLocation());
     }
 
-    public Runner(String inName, int inID, int inStatus, MyLocation inLocation) {
+    public Runner(String inName, String inID, int inStatus, MyLocation inLocation) {
         initialize(inName, inID, inStatus, inLocation);
     }
 
-    private void initialize(String inName, int inID, int inStatus, MyLocation inLocation) {
-        name = inName;
-        id = inID;
-        checkedStatus = inStatus;
-        currentLocation = inLocation;
+    private void initialize(String inName, String inID, int inStatus, MyLocation inLocation) {
+        this.name = inName;
+        this.id = inID;
+        this.checkedStatus = inStatus;
+        this.currentLocation = inLocation;
     }
 }

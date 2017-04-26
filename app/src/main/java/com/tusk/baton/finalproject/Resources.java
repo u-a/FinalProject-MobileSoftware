@@ -9,6 +9,9 @@ public final class Resources {
     public static final int PRIVACY_PRIVATE = 1;
     public static final int PRIVACY_SECRET = 2;
 
+    public static final int CHECKED_IN = 1;
+    public static final int NOT_CHECKED_IN = 0;
+
 
     public static final String CATEGORY_GAMEDAY = "Gameday";
     public static final String CATEGORY_NIGHT_OUT = "Night Out";
