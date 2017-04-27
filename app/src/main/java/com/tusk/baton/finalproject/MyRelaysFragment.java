@@ -29,7 +29,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
     RelayList relayList;
     LinearLayout cardStack;
     View view;
-    View child;
+    View child1;
     HashMap<String, Fragment> fragmentHashMap;
 
 
@@ -43,16 +43,27 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
                              Bundle savedInstanceState) {
         System.out.println("on create view my relays");
         Log.d("YOOOO", "on create view my relays");
-        relayList = new RelayList();
+        relayList = RelayList.getInstance();
         view = inflater.inflate(R.layout.fragment_my_relays, container, false);
         cardStack = (LinearLayout) view.findViewById(R.id.cardStack);
 
-        child = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child = relayList.getCard(child,  "NEED TO LOOP THROUGH TH E HASHMAP");
+        /*child = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
+        child = relayList.getCard(child*//*,  "NEED TO LOOP THROUGH TH E HASHMAP"*//*);
         mTextMessage = (TextView) child.findViewById(R.id.info_text);
-        mTextMessage.setText("Test, probably going to set this in the relayList class");
+        mTextMessage.setText("Test, going to set this in the relayList class");
         cardStack.addView(child);
-        child.setOnClickListener(this);
+        child.setOnClickListener(this);*/
+
+        // 2nd relay
+        String[] legs1 = {"Meet at the Drillfield", "Enjoy some soccer with the bros", "Deets ice cream! :)"};
+        String[] runners1 = {"Tom", "Sushant", "Karthik", "Ushan", "Elmo", "Barney", "Chuck Norris", "Bruce Lee", "Bob the Builder"
+                , "Dave"};
+        relayList.addRelay("Soccer on the Drillfield", R.drawable.soccer, legs1, runners1,0 );
+        child1 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
+        child1 = relayList.getCard(child1,  "Soccer on the Drillfield");
+        mTextMessage = (TextView) child1.findViewById(R.id.info_text);
+        cardStack.addView(child1);
+        child1.setOnClickListener(this);
 
         ViewRelayFragment frag6 = new ViewRelayFragment();
         fragmentHashMap = new HashMap<>();
@@ -87,10 +98,12 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == child.getId()){
+        if(v.getId() == child1.getId()){
             Fragment currentFragment = null;
             currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
-            System.out.println("CLICKED CARD");
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "Soccer on the Drillfield");
+            currentFragment.setArguments(bundle);
             setFragment(currentFragment);
         }
     }

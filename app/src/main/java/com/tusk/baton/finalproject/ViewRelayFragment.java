@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * Created by tomoestreich on 4/26/2017.
@@ -20,6 +22,8 @@ public class ViewRelayFragment extends Fragment {
     View child;
     RelayList relayList;
     Relay tempRelay;
+    TextView titleView, legView, runnerView;
+    ImageView imageView;
 
     public ViewRelayFragment(){
         // Required empty public constructor
@@ -30,11 +34,37 @@ public class ViewRelayFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_relay_view, container, false);
         linearRelay = (LinearLayout) view.findViewById(R.id.linearRelay);
-        relayList = new RelayList();
+        relayList = RelayList.getInstance();
         tempRelay = new Relay();
+        Bundle bundle;
+        bundle = getArguments();
+        String title = bundle.getString("title");
+        System.out.println(title);
 
         child = getLayoutInflater(savedInstanceState).inflate(R.layout.relay_view_layout, null);
-        child = relayList.getCard(child, "NEED TO LOOP THROUGH TH E HASHMAP");
+        titleView = (TextView) child.findViewById(R.id.title_text);
+        legView = (TextView) child.findViewById(R.id.leg_text);
+        runnerView = (TextView) child.findViewById(R.id.runner_text);
+        imageView = (ImageView) child.findViewById(R.id.eventImage);
+        tempRelay = relayList.getRelay(title);
+        titleView.setText(title);
+
+        String[] leg = tempRelay.getLegs();
+        String legFinal = "";
+        for(int i = 0; i < leg.length; i++){
+            legFinal = legFinal + "\n" + leg[i] + "\n";
+        }
+        legView.setText(legFinal);
+
+        String[] run = tempRelay.getRunners();
+        String runFinal = "";
+        for(int i = 0; i < run.length; i++){
+            runFinal = runFinal + "\n" + run[i] + "\n";
+        }
+        runnerView.setText(runFinal);
+
+        imageView.setImageResource(tempRelay.getPicture());
+
         linearRelay.addView(child);
         return view;
     }
@@ -59,6 +89,7 @@ public class ViewRelayFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        linearRelay.removeAllViews();
         mListener = null;
     }
 

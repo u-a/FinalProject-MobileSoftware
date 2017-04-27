@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        relayClass = new RelayList();
         setContentView(R.layout.activity_main);
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);

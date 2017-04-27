@@ -22,15 +22,26 @@ public class RelayList extends AppCompatActivity {
     private ImageView eventPic;
     private TextView mTextMessage;
 
+    private static RelayList instance = null;
+
+
     //maybe turn into a hashmahp later
     //private ArrayList<Relay> relayList;
     private HashMap<String, Relay> relayHashMap;
 
-    public RelayList(){
+    protected RelayList(){
+
         relayHashMap = new HashMap<>();
     }
 
-    public void addRelay(String title, Bitmap picture, Leg[] legs, Runner[] runners, int privacy ){
+    public static RelayList getInstance(){
+        if(instance == null){
+            instance = new RelayList();
+        }
+        return instance;
+    }
+
+    public void addRelay(String title, int picture, String[] legs, String[] runners, int privacy ){
         Relay newRelay = new Relay(title,  picture, legs, runners, privacy );
         relayHashMap.put(title, newRelay);
     }
@@ -40,17 +51,23 @@ public class RelayList extends AppCompatActivity {
     }
 
     public Relay getRelay(String title){
-        return relayHashMap.get(title);
+        if(relayHashMap.containsKey(title)) {
+            System.out.println("title in the list class: " + title);
+
+            return relayHashMap.get(title);
+        }
+        return null;
     }
 
     public View getCard(View child, String key){
         CardView eventCard;
         eventCard = (CardView) child.findViewById(R.id.card_view);
-        mTextMessage = (TextView) eventCard.findViewById(R.id.info_text);
+        mTextMessage = (TextView) child.findViewById(R.id.info_text);
         Relay tempRelay = relayHashMap.get(key);
-        mTextMessage.setText(tempRelay.getTitle());
+        System.out.println("HASH MAP: " + tempRelay.getTitle());
+        mTextMessage.setText(key);
         eventPic = (ImageView) eventCard.findViewById(R.id.eventImage);
-        eventPic.setImageBitmap(tempRelay.getPicture());
+        eventPic.setImageResource(tempRelay.getPicture());
         return child;
     }
 }
