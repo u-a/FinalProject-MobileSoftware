@@ -31,7 +31,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
     RelayList relayList;
     LinearLayout cardStack;
     View view;
-    View child1;
+    View child1, child12;
     HashMap<String, Fragment> fragmentHashMap;
 
 
@@ -56,7 +56,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
         cardStack.addView(child);
         child.setOnClickListener(this);*/
 
-        // 2nd relay
+        // 2nd relay 10 people
         String[] legs1 = {"Meet at the Drillfield", "Enjoy some soccer with the bros", "Deets ice cream! :)"};
         String[] runners1 = {"Tom", "Sushant", "Karthik", "Ushan", "Elmo", "Barney", "Chuck Norris", "Bruce Lee", "Bob the Builder"
                 , "Dave"};
@@ -66,6 +66,17 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
         mTextMessage = (TextView) child1.findViewById(R.id.info_text);
         cardStack.addView(child1);
         child1.setOnClickListener(this);
+
+        //12 people
+        String[] legs22 = {"Meet at Richards house for wine and cheese", "Sing at TOTS", "Get Bennys", "Count Calories"};
+        String[] runners22 = {"Richard Cheese", "Tom", "Sushant", "Karthik", "Ushan", "Elmo", "Barney", "Chuck Norris", "Bruce Lee", "Bob the Builder"
+                , "Dave", "Pablo Esobar", "Lionel Messi" };
+        relayList.addRelay("TOTS Tuesay", R.drawable.tots, legs22, runners22,0 );
+        child12 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
+        child12 = relayList.getCard(child12,  "TOTS Tuesay");
+        mTextMessage = (TextView) child12.findViewById(R.id.info_text);
+        cardStack.addView(child12);
+        child12.setOnClickListener(this);
 
         ViewRelayFragment frag6 = new ViewRelayFragment();
         fragmentHashMap = new HashMap<>();
@@ -100,7 +111,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == child1.getId()){
+        if(v == child1){
             Fragment currentFragment = null;
             currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
             Bundle bundle = new Bundle();
@@ -108,6 +119,15 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
             currentFragment.setArguments(bundle);
             setFragment(currentFragment);
         }
+        else if(v == child12){
+            Fragment currentFragment = null;
+            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "TOTS Tuesay");
+            currentFragment.setArguments(bundle);
+            setFragment(currentFragment);
+        }
+
     }
 
     private void setFragment(Fragment inFrag) {

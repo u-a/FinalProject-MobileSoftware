@@ -34,6 +34,10 @@ public class RelayList extends AppCompatActivity {
         relayHashMap = new HashMap<>();
     }
 
+    public HashMap<String, Relay> getHash(){
+        return relayHashMap;
+    }
+
     public static RelayList getInstance(){
         if(instance == null){
             instance = new RelayList();
