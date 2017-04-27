@@ -31,4 +31,44 @@ public class Relay {
         runners = inRunners;
         privacy = inPrivacy;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Bitmap getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Bitmap picture) {
+        this.picture = picture;
+    }
+
+    public Leg[] getLegs() {
+        return legs;
+    }
+
+    public void setLegs(Leg[] legs) {
+        this.legs = legs;
+    }
+
+    public Runner[] getRunners() {
+        return runners;
+    }
+
+    public void setRunners(Runner[] runners) {
+        this.runners = runners;
+    }
+
+    public int getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
+    }
 }
