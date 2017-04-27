@@ -27,6 +27,7 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
 
     private OnFragmentInteractionListener mListener;
     private TextView mTextMessage;
+    private TextView moreInfoText;
     RelayList relayList;
     LinearLayout cardStack;
     View view;
@@ -48,22 +49,25 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
 
         // add 1st relay
         String[] legs = {"Info session @4pm", "Break for dinner with teams @6pm", "Dessert @ 7:30pm"};
-        String[] runners = {"Tom", "Sushant", "Karthik", "Ushan", "Sam", "Seyam"};
+        String[] runners = {"Tom", "Sushant", "Karthik", "Ushan", "Sam", "Seyam", "Bradley Cooper", "Henrik Lundqvist"};
         relayList.addRelay("GM Meet and Greet", R.drawable.gm, legs, runners,0 );
         child = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child = relayList.getCard(child,  "GM Meet and Greet");
+        child = relayList.getCard(child,  "GM Meet and Greet", "\nRunners: " + runners.length + "\n" + "Legs: " + legs.length + "\n");
         mTextMessage = (TextView) child.findViewById(R.id.info_text);
+//        moreInfoText = (TextView) child.findViewById(R.id.more_info_text);
         cardStack.addView(child);
         child.setOnClickListener(this);
 
         // 2nd relay
         String[] legs1 = {"Info session @ 12pm", "Lunch with employees @1:30", "Group Interviews @ 3:30"};
         String[] runners1 = {"Tom", "Sushant", "Karthik", "Ushan", "Chuck Norris", "Bob the Builder", "Dave"};
-        relayList.addRelay("Intel Luncheon", R.drawable.intel, legs1, runners1,0 );
+        relayList.addRelay("Intel Luncheon" , R.drawable.intel, legs1, runners1,0 );
         System.out.println("IMAGE FOR INTEL: " + R.drawable.intel);
         child1 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child1 = relayList.getCard(child1,  "Intel Luncheon");
+        child1 = relayList.getCard(child1,  "Intel Luncheon", "\nRunners: " + runners1.length + "\n" + "Legs: " + legs1.length + "\n"
+                 );
         mTextMessage = (TextView) child1.findViewById(R.id.info_text);
+//        moreInfoText = (TextView) child.findViewById(R.id.more_info_text);
         cardStack.addView(child1);
         child1.setOnClickListener(this);
 
@@ -72,8 +76,9 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
         String[] runners2 = {"Tom", "Sushant", "Karthik", "Ushan", "Chuck Norris", "Elon Musk"};
         relayList.addRelay("SpaceX Interview Day", R.drawable.spacex, legs2, runners2,0 );
         child2 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child2 = relayList.getCard(child2,  "SpaceX Interview Day");
+        child2 = relayList.getCard(child2,  "SpaceX Interview Day", "\nRunners: " + runners2.length + "\n" + "Legs: " + legs2.length + "\n");
         mTextMessage = (TextView) child2.findViewById(R.id.info_text);
+//        moreInfoText = (TextView) child.findViewById(R.id.more_info_text);
         cardStack.addView(child2);
         child2.setOnClickListener(this);
 

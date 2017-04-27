@@ -62,7 +62,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
                 , "Dave"};
         relayList.addRelay("Soccer on the Drillfield", R.drawable.soccer, legs1, runners1,0 );
         child1 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child1 = relayList.getCard(child1,  "Soccer on the Drillfield");
+        child1 = relayList.getCard(child1,  "Soccer on the Drillfield", "\nRunners: " + runners1.length + "\n" + "Legs: " + legs1.length + "\n");
         mTextMessage = (TextView) child1.findViewById(R.id.info_text);
         cardStack.addView(child1);
         child1.setOnClickListener(this);
@@ -73,7 +73,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
                 , "Dave", "Pablo Esobar", "Lionel Messi" };
         relayList.addRelay("TOTS Tuesay", R.drawable.tots, legs22, runners22,0 );
         child12 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child12 = relayList.getCard(child12,  "TOTS Tuesay");
+        child12 = relayList.getCard(child12,  "TOTS Tuesay", "\nRunners: " + runners22.length + "\n" + "Legs: " + legs22.length + "\n");
         mTextMessage = (TextView) child12.findViewById(R.id.info_text);
         cardStack.addView(child12);
         child12.setOnClickListener(this);

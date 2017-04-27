@@ -50,7 +50,7 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
                 , "Dave", "Pablo Esobar", "Lionel Messi" };
         relayList.addRelay("TOTS Tuesay", R.drawable.tots, legs22, runners22,0 );
         child12 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child12 = relayList.getCard(child12,  "TOTS Tuesay");
+        child12 = relayList.getCard(child12,  "TOTS Tuesay", "\nRunners: " + runners22.length + "\n" + "Legs: " + legs22.length + "\n");
         mTextMessage = (TextView) child12.findViewById(R.id.info_text);
         cardStack.addView(child12);
         child12.setOnClickListener(this);
@@ -61,7 +61,7 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
                 , "Dave"};
         relayList.addRelay("Soccer on the Drillfield", R.drawable.soccer, legs0, runners0,0 );
         child0 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child0 = relayList.getCard(child0,  "Soccer on the Drillfield");
+        child0 = relayList.getCard(child0,  "Soccer on the Drillfield", "\nRunners: " + runners0.length + "\n" + "Legs: " + legs0.length + "\n");
         mTextMessage = (TextView) child0.findViewById(R.id.info_text);
         cardStack.addView(child0);
         child0.setOnClickListener(this);
@@ -71,7 +71,7 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
         String[] runners = {"Tom", "Sushant", "Karthik", "Ushan", "Sam", "Seyam", "Bradley Cooper", "Henrik Lundqvist"};
         relayList.addRelay("GM Meet and Greet", R.drawable.gm, legs, runners, 0);
         child = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child = relayList.getCard(child, "GM Meet and Greet");
+        child = relayList.getCard(child, "GM Meet and Greet", "\nRunners: " + runners.length + "\n" + "Legs: " + legs.length + "\n");
         mTextMessage = (TextView) child.findViewById(R.id.info_text);
         cardStack.addView(child);
         child.setOnClickListener(this);
@@ -82,7 +82,7 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
         relayList.addRelay("Intel Luncheon", R.drawable.intel, legs1, runners1, 0);
         System.out.println("IMAGE FOR INTEL: " + R.drawable.intel);
         child1 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child1 = relayList.getCard(child1, "Intel Luncheon");
+        child1 = relayList.getCard(child1, "Intel Luncheon",  "\nRunners: " + runners1.length + "\n" + "Legs: " + legs1.length + "\n");
         mTextMessage = (TextView) child1.findViewById(R.id.info_text);
         cardStack.addView(child1);
         child1.setOnClickListener(this);
@@ -92,7 +92,7 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
         String[] runners2 = {"Tom", "Sushant", "Karthik", "Ushan", "Chuck Norris", "Elon Musk"};
         relayList.addRelay("SpaceX Interview Day", R.drawable.spacex, legs2, runners2, 0);
         child2 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
-        child2 = relayList.getCard(child2, "SpaceX Interview Day");
+        child2 = relayList.getCard(child2, "SpaceX Interview Day",  "\nRunners: " + runners2.length + "\n" + "Legs: " + legs2.length + "\n");
         mTextMessage = (TextView) child2.findViewById(R.id.info_text);
         cardStack.addView(child2);
         child2.setOnClickListener(this);

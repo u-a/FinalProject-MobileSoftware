@@ -63,13 +63,13 @@ public class RelayList extends AppCompatActivity {
         return null;
     }
 
-    public View getCard(View child, String key){
+    public View getCard(View child, String key, String extra){
         CardView eventCard;
         eventCard = (CardView) child.findViewById(R.id.card_view);
         mTextMessage = (TextView) child.findViewById(R.id.info_text);
         Relay tempRelay = relayHashMap.get(key);
         System.out.println("HASH MAP: " + tempRelay.getTitle());
-        mTextMessage.setText(key);
+        mTextMessage.setText(key + extra);
         eventPic = (ImageView) eventCard.findViewById(R.id.eventImage);
         eventPic.setImageResource(tempRelay.getPicture());
         return child;
