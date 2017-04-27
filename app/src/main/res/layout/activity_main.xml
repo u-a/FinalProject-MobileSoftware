@@ -16,18 +16,24 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        >
+        android:title="@string/app_name"
+        />
 
-    </android.support.v7.widget.Toolbar>
-
-    <FrameLayout
-        android:id="@+id/content"
+    <ScrollView
+        android:id="@+id/scrollItem"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
 
-    </FrameLayout>
-
+        >
+        <LinearLayout
+            android:id="@+id/linActMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+        </LinearLayout>
+    </ScrollView>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

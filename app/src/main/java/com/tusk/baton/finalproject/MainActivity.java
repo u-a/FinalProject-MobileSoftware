@@ -24,13 +24,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, ViewRelayFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
-    private static final String TAG = "MainActivity~~";
+    private ViewGroup insertFrag;
+    private RelayList relayClass;
+    private static final String TAG = "Menu~: ";
     HashMap<String, Fragment> fragmentHashMap;
 
 
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        insertFrag = (LinearLayout) findViewById(R.id.linActMain);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
             fm.popBackStack();
         }
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.content, inFrag, inFrag.getTag());
+        ft.replace(R.id.linActMain, inFrag, inFrag.getTag());
         ft.commit();
     }
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent"
+        card_view:cardCornerRadius="15dp"
+        card_view:cardElevation="2dp"
+        card_view:cardBackgroundColor ="@color/cardview_shadow_end_color"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/tots"
+                android:contentDescription="Image of Event"
+                android:id="@+id/eventImage"
+                />
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".075"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textSize="20dp"
+                android:text="Title" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Legs:"
+                android:textSize="20dp"
+                android:gravity="center" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:text="Location \nlocation \nlocation\nlocation\nlocation\nlocation\nlocation\nlocation\nlocation"
+                    android:id="@+id/leg_text"
+                    android:gravity="center"/>
+            </ScrollView>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Runners:"
+                android:textSize="20dp"
+                android:gravity="center" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:text="Location \nlocation \nlocation\nlocation\nlocation\nlocation\nlocation\nlocation\nlocation"
+                    android:id="@+id/runner_text"
+                    android:gravity="center"/>
+            </ScrollView>
+            <TextView
+                android:id="@+id/privacy_text"
+                android:padding="16dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".075"
+                android:text="PRIVACY"
+                />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</ScrollView>

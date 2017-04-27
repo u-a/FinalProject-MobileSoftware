@@ -5,6 +5,7 @@
     <string name="trending_locations">Trending Locations</string>
     <string name="sponsored">Sponsored</string>
     <string name="search">Search</string>
+    <string name="view_relay">View</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
