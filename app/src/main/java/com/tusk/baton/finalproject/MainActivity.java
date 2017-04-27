@@ -107,15 +107,12 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
                 case R.id.navigation_trending_relays:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.trending_relays));
                     break;
-                case R.id.navigation_trending_locations:
-                    currentFragment = fragmentHashMap.get(getResourceString(R.string.trending_locations));
-                    break;
                 case R.id.navigation_sponsored:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.sponsored));
                     break;
-                case R.id.navigation_search:
-                    currentFragment = fragmentHashMap.get(getResourceString(R.string.search));
-                    break;
+//                case R.id.navigation_search:
+//                    currentFragment = fragmentHashMap.get(getResourceString(R.string.search));
+//                    break;
             }
             if (currentFragment != null) {
                 setFragment(currentFragment);

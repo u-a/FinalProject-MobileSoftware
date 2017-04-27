@@ -27,17 +27,9 @@
         android:title="@string/trending_relays" />
 
     <item
-        android:id="@+id/navigation_trending_locations"
-        android:icon="@drawable/trendinglocations"
-        android:title="@string/trending_locations" />
-
-    <item
         android:id="@+id/navigation_sponsored"
         android:icon="@drawable/sponsored"
         android:title="@string/sponsored" />
 
-    <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/search"
-        android:title="@string/search" />
+
 </menu>
