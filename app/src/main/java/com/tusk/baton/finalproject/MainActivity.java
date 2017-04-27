@@ -23,13 +23,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, ViewRelayFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, ViewRelayFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener, View.OnClickListener{
 
     private ViewGroup insertFrag;
     private RelayList relayClass;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     private Intent userProfileIntent;
     private User user;
     private GPSManager gpsManager;
-
+    private Button createRelayButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,9 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         createUser();
         //initializes all the main activity UI elements
         //example: toolbar at the top and navigationbar
-        initUI();
         //Same as above for the 5 fragments
         initFragments();
+        initUI();
 
         setupUserProfileIntent();
 
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+//        createRelayButton = (Button) findViewById(R.id.createRelayButton);
+//        createRelayButton.setOnClickListener(this);
 
         insertFrag = (LinearLayout) findViewById(R.id.linActMain);
     }
@@ -170,7 +174,8 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
     public void updateGPSLocation(Location lastKnownLocation) {
         currentLocation = lastKnownLocation;
-        Log.d(TAG, "updateGPSLocation: Lat="+lastKnownLocation.getLatitude() + " Long=" + lastKnownLocation.getLongitude());
+//        if (currentLocation!=null)
+//            Log.d(TAG, "updateGPSLocation: Lat="+lastKnownLocation.getLatitude() + " Long=" + lastKnownLocation.getLongitude());
     }
 
     @Override
@@ -182,6 +187,15 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onButtonClicked(int i) {
+        if (i == 0) {
+            Log.d(TAG, "onButtonClicked: ");
+            Intent intent = new Intent(this, CreateRelayActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -223,5 +237,23 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         user.setName(getResources().getString(R.string.name));
         user.setUsername(getResources().getString(R.string.user_name));
         user.setPhoneNumber( getResources().getString(R.string.phone_number));
+    }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == createRelayButton.getId()) {
+            Log.d(TAG, "onClick: button");
+            Intent intent = new Intent(this, CreateRelayActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    public MainActivity getSelf() {
+        return this;
     }
 }

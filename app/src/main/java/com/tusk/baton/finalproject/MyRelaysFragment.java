@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
 
     private OnFragmentInteractionListener mListener;
     private TextView mTextMessage;
+    private Button createButton;
     RelayList relayList;
     LinearLayout cardStack;
     View view;
@@ -48,6 +50,8 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
         relayList = RelayList.getInstance();
         view = inflater.inflate(R.layout.fragment_my_relays, container, false);
         cardStack = (LinearLayout) view.findViewById(R.id.cardStack);
+        createButton = (Button) view.findViewById(R.id.createRelayButton);
+        createButton.setOnClickListener(this);
 
         /*child = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
         child = relayList.getCard(child*//*,  "NEED TO LOOP THROUGH TH E HASHMAP"*//*);
@@ -77,6 +81,8 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
         mTextMessage = (TextView) child12.findViewById(R.id.info_text);
         cardStack.addView(child12);
         child12.setOnClickListener(this);
+
+
 
         ViewRelayFragment frag6 = new ViewRelayFragment();
         fragmentHashMap = new HashMap<>();
@@ -128,6 +134,9 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
             setFragment(currentFragment);
         }
 
+        if (v.getId() == createButton.getId()) {
+            mListener.onButtonClicked(0);
+        }
     }
 
     private void setFragment(Fragment inFrag) {
@@ -162,5 +171,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
+        void onButtonClicked(int i);
     }
 }
