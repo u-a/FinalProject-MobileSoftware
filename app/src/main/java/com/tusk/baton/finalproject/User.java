@@ -20,6 +20,10 @@ public class User {
 
     private String phoneNumber;
     private Bitmap profilePicture;
+    Boolean pictureSet;
+    Bitmap pic;
+
+    Uri pictureUri;
 
     private Runner runner;
     private MyLocation myLocation;
@@ -28,6 +32,7 @@ public class User {
         name = "";
         username = "";
         phoneNumber = "";
+        pictureSet = false;
     }
 
     protected User(String name, String username, String phoneNumber) {
@@ -88,5 +93,14 @@ public class User {
     public void setProfilePicture(Bitmap profilePicture) {
         this.profilePicture = profilePicture;
     }
+
+    public Uri getPictureUri() {
+        return pictureUri;
+    }
+
+    public void setPictureUri(Uri pictureUri) {
+        this.pictureUri = pictureUri;
+    }
+
 
 }
