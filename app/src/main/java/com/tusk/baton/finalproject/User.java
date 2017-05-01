@@ -1,6 +1,7 @@
 package com.tusk.baton.finalproject;
 
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class User {
     Uri pictureUri;
 
     private Runner runner;
-    private MyLocation myLocation;
+    private Location myLocation;
 
     protected User(){
         name = "";

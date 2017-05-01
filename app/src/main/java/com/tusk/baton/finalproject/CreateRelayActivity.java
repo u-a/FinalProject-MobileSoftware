@@ -98,7 +98,7 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
             
             for (int i = 0; i < visible.length; i++) {
                 if (visible[i]) {
-                    MyLocation loc = new MyLocation();
+                    Location loc = new Location("");
 
                     Log.d(TAG, "onClick: textfield1 loc="+locationText[i].getText().toString() + " time=" + timeText[i].getText().toString());
                     Leg l = new Leg();
