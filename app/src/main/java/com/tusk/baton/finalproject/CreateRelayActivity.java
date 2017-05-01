@@ -1,5 +1,6 @@
 package com.tusk.baton.finalproject;
 
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -90,9 +91,17 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
 
         if (v.getId() == create.getId()) {
             int trueCount = 0;
+            
+//            for (int i = 0; i < visible.length; i++) {
+//                Log.d(TAG, "onClick: textfield1 loc="+locationText[i].getText().toString() + " time=" + timeText[i].getText().toString());
+//            }
+            
             for (int i = 0; i < visible.length; i++) {
                 if (visible[i]) {
-                    trueCount++;
+                    MyLocation loc = new MyLocation();
+
+                    Log.d(TAG, "onClick: textfield1 loc="+locationText[i].getText().toString() + " time=" + timeText[i].getText().toString());
+                    Leg l = new Leg();
                 }
             }
 
