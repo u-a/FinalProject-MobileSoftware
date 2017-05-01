@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
     private ViewGroup insertFrag;
     private RelayList relayClass;
-    private static final String TAG = "Menu~: ";
+    private static final String TAG = "MainActivity~~";
     HashMap<String, Fragment> fragmentHashMap;
 
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
         gpsManager = new GPSManager(this);
         Log.d(TAG, "onCreate: GPSManager initialized");
-
+        createRelayButton = (Button) findViewById(R.id.createRelayButton);
 
     }
 
@@ -107,12 +107,18 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
             switch (item.getItemId()) {
                 case R.id.navigation_my_relays:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.my_relays));
+                    if (createRelayButton != null) createRelayButton.setVisibility(View.VISIBLE);
+                    else Log.d(TAG, "onNavigationItemSelected: button is null");
                     break;
                 case R.id.navigation_trending_relays:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.trending_relays));
+                    if (createRelayButton != null) createRelayButton.setVisibility(View.GONE);
+                    else Log.d(TAG, "onNavigationItemSelected: button is null");
                     break;
                 case R.id.navigation_sponsored:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.sponsored));
+                    if (createRelayButton != null) createRelayButton.setVisibility(View.GONE);
+                    else Log.d(TAG, "onNavigationItemSelected: button is null");
                     break;
 //                case R.id.navigation_search:
 //                    currentFragment = fragmentHashMap.get(getResourceString(R.string.search));

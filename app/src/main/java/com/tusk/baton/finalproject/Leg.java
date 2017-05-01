@@ -1,5 +1,7 @@
 package com.tusk.baton.finalproject;
 
+import android.location.Location;
+
 import java.util.Date;
 
 import static com.tusk.baton.finalproject.Resources.CATEGORY_GAMEDAY;
@@ -10,19 +12,19 @@ import static com.tusk.baton.finalproject.Resources.CATEGORY_GAMEDAY;
 
 public class Leg {
 
-    private MyLocation myLocation;
+    private Location myLocation;
     private Date time;
     private String category;
 
     public Leg() {
-        initialize(new MyLocation(), new Date(), CATEGORY_GAMEDAY);
+        initialize(new Location(""), new Date(), CATEGORY_GAMEDAY);
     }
 
-    public Leg(MyLocation inLocation, Date inTime, String inCategory) {
+    public Leg(Location inLocation, Date inTime, String inCategory) {
         initialize(inLocation, inTime, inCategory);
     }
 
-    private void initialize(MyLocation inLocation, Date inTime, String inCategory) {
+    private void initialize(Location inLocation, Date inTime, String inCategory) {
         myLocation = inLocation;
         time = inTime;
         category = inCategory;

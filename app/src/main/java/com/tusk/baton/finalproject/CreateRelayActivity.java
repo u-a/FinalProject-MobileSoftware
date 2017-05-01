@@ -1,9 +1,6 @@
 package com.tusk.baton.finalproject;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -17,22 +14,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.io.File;
-
-import static com.tusk.baton.finalproject.UserProfileActivity.REQUEST_IMAGE;
-
 public class CreateRelayActivity extends AppCompatActivity implements View.OnClickListener{
 
     static final String TAG = "CreateRelayActivity~~";
     private boolean visible[];
     private LinearLayout layoutView[];
     private LinearLayout masterLayout;
-    private Button addLeg, create, addPic;
+    private Button addLeg, create;
     private EditText titleText;
     private EditText[] locationText;
     private EditText[] timeText;
-    private int numVisible;
-    RelayList thisRelayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +35,6 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
         addLeg.setOnClickListener(this);
         create = (Button) findViewById(R.id.createButton);
         create.setOnClickListener(this);
-        addPic = (Button) findViewById(R.id.pictureButton);
-        addPic.setOnClickListener(this);
-        thisRelayList = RelayList.getInstance();
-        titleText = (EditText)findViewById(R.id.titleText);
-        numVisible = 2;
     }
 
     private void initArrays() {
@@ -96,7 +82,6 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
             for(int i = 1; i < visible.length; i++) {
                 if (visible[i] == false && visible[i-1] == true) {
                     visible[i] = true;
-                    numVisible++;
                     break;
                 }
             }
@@ -106,28 +91,24 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
 
         if (v.getId() == create.getId()) {
             int trueCount = 0;
+            
+//            for (int i = 0; i < visible.length; i++) {
+//                Log.d(TAG, "onClick: textfield1 loc="+locationText[i].getText().toString() + " time=" + timeText[i].getText().toString());
+//            }
+            
             for (int i = 0; i < visible.length; i++) {
                 if (visible[i]) {
-                    trueCount++;
+                    MyLocation loc = new MyLocation();
+
+                    Log.d(TAG, "onClick: textfield1 loc="+locationText[i].getText().toString() + " time=" + timeText[i].getText().toString());
+                    Leg l = new Leg();
                 }
             }
-
-            Leg[] myLegs = new Leg[trueCount];
-//            for(int z = 0; z < trueCount; z++){
-//                myLegs[z].setMyLocation(Double.parseDouble(locationText[z].getText().toString()));
-//            }
-
-
-
 
 //            String[] legs = new String[trueCount];
 //            for (int i = 0; i < trueCount; i++) {
 //                legs[i] =
 //            }
-        }
-
-        if(v.getId() == addPic.getId()){
-
         }
     }
 }
