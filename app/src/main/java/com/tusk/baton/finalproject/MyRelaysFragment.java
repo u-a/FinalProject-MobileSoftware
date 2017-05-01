@@ -1,6 +1,7 @@
 package com.tusk.baton.finalproject;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
     View view;
     View child1, child12;
     HashMap<String, Fragment> fragmentHashMap;
+    Leg myLeg;
 
 
     public MyRelaysFragment() {
@@ -75,6 +77,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
         String[] legs22 = {"Meet at Richards house for wine and cheese", "Sing at TOTS", "Get Bennys", "Count Calories"};
         String[] runners22 = {"Richard Cheese", "Tom", "Sushant", "Karthik", "Ushan", "Elmo", "Barney", "Chuck Norris", "Bruce Lee", "Bob the Builder"
                 , "Dave", "Pablo Esobar", "Lionel Messi" };
+
         relayList.addRelay("TOTS Tuesay", R.drawable.tots, legs22, runners22,0 );
         child12 = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
         child12 = relayList.getCard(child12,  "TOTS Tuesay", "\nRunners: " + runners22.length + "\n" + "Legs: " + legs22.length + "\n");
