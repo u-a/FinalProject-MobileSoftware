@@ -73,28 +73,4 @@ public class Leg {
     public void setCategory(String category) {
         this.category = category;
     }
-
-    public MyLocation getMyLocation() {
-        return myLocation;
-    }
-
-    public void setMyLocation(MyLocation myLocation) {
-        this.myLocation = myLocation;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

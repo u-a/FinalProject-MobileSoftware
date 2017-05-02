@@ -27,7 +27,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
+import com.amazonaws.mobileconnectors.cognito.Dataset;
+import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
+import com.amazonaws.regions.Regions;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MyRelaysFragment.OnFragmentInteractionListener, ViewRelayFragment.OnFragmentInteractionListener, TrendingRelaysFragment.OnFragmentInteractionListener, TrendingLocationsFragment.OnFragmentInteractionListener, SponsoredFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener, View.OnClickListener{
@@ -44,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     private User user;
     private GPSManager gpsManager;
     private Button createRelayButton;
+    public Dataset dataset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,32 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         gpsManager = new GPSManager(this);
         Log.d(TAG, "onCreate: GPSManager initialized");
         createRelayButton = (Button) findViewById(R.id.createRelayButton);
+
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
+                Regions.US_WEST_2 // Region
+        );
+
+        CognitoSyncManager syncClient = new CognitoSyncManager(
+                getApplicationContext(),
+                Regions.US_WEST_2, // Region
+                credentialsProvider);
+
+        dataset = syncClient.openOrCreateDataset("myDataset");
+        HashMap<String, String> testMap = new HashMap<>();
+        testMap.put("Yo","Yo");
+        testMap.put("New", "Push");
+        dataset.put("myKey", "hallo");
+        dataset.putAll(testMap);
+        dataset.synchronize(new DefaultSyncCallback() {
+            @Override
+            public void onSuccess(Dataset dataset, List newRecords) {
+                //Your handler code here
+
+
+            }
+        });
 
     }
 
