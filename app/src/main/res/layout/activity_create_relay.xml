@@ -109,6 +109,17 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="4" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Date" />
+
+                        <EditText
+                            android:id="@+id/date1Text"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -164,6 +175,17 @@
 
                         <EditText
                             android:id="@+id/time2Text"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Date" />
+
+                        <EditText
+                            android:id="@+id/date2Text"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="4" />
@@ -225,6 +247,17 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="4" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Date" />
+
+                        <EditText
+                            android:id="@+id/date3Text"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -280,6 +313,17 @@
 
                         <EditText
                             android:id="@+id/time4Text"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Date" />
+
+                        <EditText
+                            android:id="@+id/date4Text"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="4" />

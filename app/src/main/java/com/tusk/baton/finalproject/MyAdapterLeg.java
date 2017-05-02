@@ -51,6 +51,8 @@ public class MyAdapterLeg extends RecyclerView.Adapter<MyAdapterLeg.MyViewHolder
         holder.time.setText(""+leg.getTime().toString().substring(0,
                 leg.getTime().toString().length() - 12 ));
 
+//        holder.time.setText(""+leg.getTime().toString());
+
     }
 
     @Override
