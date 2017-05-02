@@ -2,6 +2,8 @@ package com.tusk.baton.finalproject;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+
 import static com.tusk.baton.finalproject.Resources.PRIVACY_PUBLIC;
 
 /**
@@ -12,19 +14,19 @@ public class Relay {
 
     private String title;
     private int picture;
-    private String[] legs;
-    private String[] runners;
+    private ArrayList<Leg> legs;
+    private ArrayList<Runner> runners;
     private int privacy;
 
     public Relay() {
-        initialize("", 0, new String[]{}, new String[] {}, PRIVACY_PUBLIC);
+        initialize("", 0, new ArrayList<Leg>(), new ArrayList<Runner>(), PRIVACY_PUBLIC);
     }
 
-    public Relay(String inTitle, int inPicture, String[] inLegs, String[] inRunners, int inPrivacy) {
+    public Relay(String inTitle, int inPicture, ArrayList<Leg> inLegs, ArrayList<Runner> inRunners, int inPrivacy) {
         initialize(inTitle, inPicture, inLegs, inRunners, inPrivacy);
     }
 
-    private void initialize(String inTitle, int inPicture, String [] inLegs, String[] inRunners, int inPrivacy) {
+    private void initialize(String inTitle, int inPicture, ArrayList<Leg> inLegs, ArrayList<Runner> inRunners, int inPrivacy) {
         title = inTitle;
         picture = inPicture;
         legs = inLegs;
@@ -48,20 +50,28 @@ public class Relay {
         this.picture = picture;
     }
 
-    public String[] getLegs() {
+    public ArrayList<Leg> getLegs() {
         return legs;
     }
 
-    public void setLegs(String[] legs) {
+    public void setLegs(ArrayList<Leg> legs) {
         this.legs = legs;
     }
 
-    public String[] getRunners() {
+    public void addLeg(Leg inLeg) {
+        legs.add(inLeg);
+    }
+
+    public ArrayList<Runner> getRunners() {
         return runners;
     }
 
-    public void setRunners(String[] runners) {
+    public void setRunners(ArrayList<Runner> runners) {
         this.runners = runners;
+    }
+
+    public void addRunner(Runner inRunner ){
+        runners.add(inRunner);
     }
 
     public int getPrivacy() {

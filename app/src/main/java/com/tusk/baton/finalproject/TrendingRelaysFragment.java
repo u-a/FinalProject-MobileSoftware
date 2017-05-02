@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,12 +27,15 @@ import java.util.HashMap;
  */
 public class TrendingRelaysFragment extends Fragment implements View.OnClickListener, ViewRelayFragment.OnFragmentInteractionListener {
 
+    private static final String TAG = "TrendingRelaysFrag~~";
     private OnFragmentInteractionListener mListener;
     private TextView mTextMessage;
+    private TextView mSubTextMessage;
     RelayList relayList;
     LinearLayout cardStack;
     View view;
-    View child, child1, child2, child0, child12;
+//    View child, child1, child2, child0, child12;
+    HashMap<Integer, View> cardList;                //this is a hashmap to make onClick easier to implement
     HashMap<String, Fragment> fragmentHashMap;
 
     public TrendingRelaysFragment() {
@@ -43,7 +49,21 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
         relayList = RelayList.getInstance();
         view = inflater.inflate(R.layout.fragment_my_relays, container, false);
         cardStack = (LinearLayout) view.findViewById(R.id.cardStack);
+        cardList = new HashMap<>();
 
+//        Log.d(TAG, "onCreateView: relayList size="+relayList.getHashMap().size());
+        for (Relay relay: relayList.getHashMap().values()) {
+            Log.d(TAG, "onCreateView: 1");
+            View tempChild;
+            tempChild = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
+            tempChild = getCard(tempChild, relay);
+            mTextMessage = (TextView) tempChild.findViewById(R.id.info_text);
+            cardStack.addView(tempChild);
+            tempChild.setOnClickListener(this);
+            cardList.put(tempChild.getId(), tempChild);
+        }
+
+        /*
         //12 people
         String[] legs22 = {"Meet at Richards house for wine and cheese", "Sing at TOTS", "Get Bennys", "Count Calories"};
         String[] runners22 = {"Richard Cheese", "Tom", "Sushant", "Karthik", "Ushan", "Elmo", "Barney", "Chuck Norris", "Bruce Lee", "Bob the Builder"
@@ -96,11 +116,27 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
         mTextMessage = (TextView) child2.findViewById(R.id.info_text);
         cardStack.addView(child2);
         child2.setOnClickListener(this);
+        */
 
         ViewRelayFragment frag6 = new ViewRelayFragment();
         fragmentHashMap = new HashMap<>();
         fragmentHashMap.put(getResourceString(R.string.view_relay), frag6);
         return view;
+    }
+
+    public View getCard(View child, Relay inRelay){
+        CardView eventCard;
+        eventCard = (CardView) child.findViewById(R.id.card_view);
+        mTextMessage = (TextView) child.findViewById(R.id.info_text);
+        mSubTextMessage = (TextView) child.findViewById(R.id.more_info_text);
+//        System.out.println("HASH MAP: " + inRelay.getTitle());
+
+        mTextMessage.setText(inRelay.getTitle());
+        String mainText =  "Legs: " + inRelay.getLegs().size() + "\nRunners: " + inRelay.getRunners().size();
+        mSubTextMessage.setText(mainText);
+        ImageView eventPic = (ImageView) eventCard.findViewById(R.id.eventImage);
+        eventPic.setImageResource(inRelay.getPicture());
+        return child;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -143,48 +179,59 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(v == child0){
+        if (cardList.containsKey(v.getId())) {
             Fragment currentFragment = null;
             currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
             Bundle bundle = new Bundle();
-            bundle.putString("title", "Soccer on the Drillfield");
+            String cardTitle = ((TextView) v.findViewById(R.id.info_text)).getText().toString();
+            Log.d(TAG, "onClick: cardTitle="+cardTitle);
+            bundle.putString("title", cardTitle);
             currentFragment.setArguments(bundle);
             setFragment(currentFragment);
         }
-        else if(v == child12){
-            Fragment currentFragment = null;
-            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
-            Bundle bundle = new Bundle();
-            bundle.putString("title", "TOTS Tuesay");
-            currentFragment.setArguments(bundle);
-            setFragment(currentFragment);
-        }
-        else if(v == child){
-            Fragment currentFragment = null;
-            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
-            Bundle bundle = new Bundle();
-            bundle.putString("title", "GM Meet and Greet");
-            currentFragment.setArguments(bundle);
-            setFragment(currentFragment);
-        }
-        //INTEL
-        else if(v== child1){
-            Fragment currentFragment = null;
-            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
-            Bundle bundle = new Bundle();
-            bundle.putString("title", "Intel Luncheon");
-            currentFragment.setArguments(bundle);
-            setFragment(currentFragment);
-        }
-        //SPACEX
-        else if(v == child2){
-            Fragment currentFragment = null;
-            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
-            Bundle bundle = new Bundle();
-            bundle.putString("title", "SpaceX Interview Day");
-            currentFragment.setArguments(bundle);
-            setFragment(currentFragment);
-        }
+
+//        if(v == child0){
+//            Fragment currentFragment = null;
+//            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
+//            Bundle bundle = new Bundle();
+//            bundle.putString("title", "Soccer on the Drillfield");
+//            currentFragment.setArguments(bundle);
+//            setFragment(currentFragment);
+//        }
+//        else if(v == child12){
+//            Fragment currentFragment = null;
+//            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
+//            Bundle bundle = new Bundle();
+//            bundle.putString("title", "TOTS Tuesay");
+//            currentFragment.setArguments(bundle);
+//            setFragment(currentFragment);
+//        }
+//        else if(v == child){
+//            Fragment currentFragment = null;
+//            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
+//            Bundle bundle = new Bundle();
+//            bundle.putString("title", "GM Meet and Greet");
+//            currentFragment.setArguments(bundle);
+//            setFragment(currentFragment);
+//        }
+//        //INTEL
+//        else if(v== child1){
+//            Fragment currentFragment = null;
+//            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
+//            Bundle bundle = new Bundle();
+//            bundle.putString("title", "Intel Luncheon");
+//            currentFragment.setArguments(bundle);
+//            setFragment(currentFragment);
+//        }
+//        //SPACEX
+//        else if(v == child2){
+//            Fragment currentFragment = null;
+//            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
+//            Bundle bundle = new Bundle();
+//            bundle.putString("title", "SpaceX Interview Day");
+//            currentFragment.setArguments(bundle);
+//            setFragment(currentFragment);
+//        }
     }
 
     @Override

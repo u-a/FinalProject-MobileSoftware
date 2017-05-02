@@ -3,6 +3,9 @@ package com.tusk.baton.finalproject;
 import android.location.Location;
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Ushan on 4/26/2017.
  */
@@ -11,6 +14,7 @@ public final class Resources {
     public static final int PRIVACY_PUBLIC = 0;
     public static final int PRIVACY_PRIVATE = 1;
     public static final int PRIVACY_SECRET = 2;
+    public static final int PRIVACY_SPONSORED = 3;
 
     public static final int CHECKED_IN = 1;
     public static final int NOT_CHECKED_IN = 0;
