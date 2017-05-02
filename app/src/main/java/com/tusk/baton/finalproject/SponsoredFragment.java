@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,12 +30,13 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
 
     private OnFragmentInteractionListener mListener;
     private TextView mTextMessage;
-    private TextView moreInfoText;
+    private TextView mSubTextMessage;
     RelayList relayList;
     LinearLayout cardStack;
     View view;
     View child, child1, child2;
     HashMap<String, Fragment> fragmentHashMap;
+    HashMap<Integer, View> cardList;                //this is a hashmap to make onClick easier to implement
 
     public SponsoredFragment() {
         // Required empty public constructor
@@ -46,7 +50,22 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
         relayList = RelayList.getInstance();
         view = inflater.inflate(R.layout.fragment_my_relays, container, false);
         cardStack = (LinearLayout) view.findViewById(R.id.cardStack);
+        cardList = new HashMap<>();
 
+        for (Relay relay: relayList.getHashMap().values()) {
+//            Log.d(TAG, "onCreateView: 1");
+            if (relay.getPrivacy() == Resources.PRIVACY_SPONSORED) {
+                View tempChild;
+                tempChild = getLayoutInflater(savedInstanceState).inflate(R.layout.event_layout, null);
+                tempChild = getCard(tempChild, relay);
+                mTextMessage = (TextView) tempChild.findViewById(R.id.info_text);
+                cardStack.addView(tempChild);
+                tempChild.setOnClickListener(this);
+                cardList.put(tempChild.getId(), tempChild);
+            }
+        }
+
+/*
         // add 1st relay
         String[] legs = {"Info session @4pm", "Break for dinner with teams @6pm", "Dessert @ 7:30pm"};
         String[] runners = {"Tom", "Sushant", "Karthik", "Ushan", "Sam", "Seyam", "Bradley Cooper", "Henrik Lundqvist"};
@@ -85,7 +104,25 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
         ViewRelayFragment frag6 = new ViewRelayFragment();
         fragmentHashMap = new HashMap<>();
         fragmentHashMap.put(getResourceString(R.string.view_relay), frag6);
+        */
         return view;
+    }
+
+
+
+    public View getCard(View child, Relay inRelay){
+        CardView eventCard;
+        eventCard = (CardView) child.findViewById(R.id.card_view);
+        mTextMessage = (TextView) child.findViewById(R.id.info_text);
+        mSubTextMessage = (TextView) child.findViewById(R.id.more_info_text);
+//        System.out.println("HASH MAP: " + inRelay.getTitle());
+
+        mTextMessage.setText(inRelay.getTitle());
+        String mainText =  "Legs: " + inRelay.getLegs().size() + "\nRunners: " + inRelay.getRunners().size();
+        mSubTextMessage.setText(mainText);
+        ImageView eventPic = (ImageView) eventCard.findViewById(R.id.eventImage);
+        eventPic.setImageResource(inRelay.getPicture());
+        return child;
     }
 
     public String getResourceString(int inRID) {

@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
  */
 
 public class ViewRelayFragment extends Fragment {
+    private static final String TAG = "ViewRelayFragment~~";
     private OnFragmentInteractionListener mListener;
     View view;
     LinearLayout linearRelay;
@@ -39,8 +41,8 @@ public class ViewRelayFragment extends Fragment {
         Bundle bundle;
         bundle = getArguments();
         String title = bundle.getString("title");
-        System.out.println(title);
-
+        Log.d(TAG, "onCreateView: title="+title);
+        
         child = getLayoutInflater(savedInstanceState).inflate(R.layout.relay_view_layout, null);
         titleView = (TextView) child.findViewById(R.id.title_text);
         legView = (TextView) child.findViewById(R.id.leg_text);
@@ -49,17 +51,17 @@ public class ViewRelayFragment extends Fragment {
         tempRelay = relayList.getRelay(title);
         titleView.setText(title);
 
-        String[] leg = tempRelay.getLegs();
+        Leg[] leg = tempRelay.getLegs().toArray(new Leg[tempRelay.getLegs().size()]);
         String legFinal = "";
         for(int i = 0; i < leg.length; i++){
-            legFinal = legFinal + "\n" + leg[i] + "\n";
+            legFinal = legFinal + "\n" + leg[i].getTitle() + "\n";
         }
         legView.setText(legFinal);
 
-        String[] run = tempRelay.getRunners();
+        Runner[] run = tempRelay.getRunners().toArray(new Runner[tempRelay.getRunners().size()]);
         String runFinal = "";
         for(int i = 0; i < run.length; i++){
-            runFinal = runFinal + "\n" + run[i] + "\n";
+            runFinal = runFinal + "\n" + run[i].getName() + "\n";
         }
         runnerView.setText(runFinal);
 
