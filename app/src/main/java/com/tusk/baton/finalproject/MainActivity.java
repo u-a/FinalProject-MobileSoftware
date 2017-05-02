@@ -34,6 +34,8 @@ import com.amazonaws.mobileconnectors.cognito.Dataset;
 import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
 import com.amazonaws.regions.Regions;
 
+import org.json.JSONException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,31 +75,48 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         Log.d(TAG, "onCreate: GPSManager initialized");
         createRelayButton = (Button) findViewById(R.id.createRelayButton);
 
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),
-                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
-                Regions.US_WEST_2 // Region
-        );
+//        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+//                getApplicationContext(),
+//                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
+//                Regions.US_WEST_2 // Region
+//        );
+//
+//        CognitoSyncManager syncClient = new CognitoSyncManager(
+//                getApplicationContext(),
+//                Regions.US_WEST_2, // Region
+//                credentialsProvider);
+//
+//        dataset = syncClient.openOrCreateDataset("myDataset");
+//        HashMap<String, String> testMap = new HashMap<>();
+//        testMap.put("Yo","Yo");
+//        testMap.put("New", "Push");
+//        dataset.put("myKey", "hallo");
+//        dataset.putAll(testMap);
+//        dataset.synchronize(new DefaultSyncCallback() {
+//            @Override
+//            public void onSuccess(Dataset dataset, List newRecords) {
+//                //Your handler code here
+//
+//
+//            }
+//        });
 
-        CognitoSyncManager syncClient = new CognitoSyncManager(
-                getApplicationContext(),
-                Regions.US_WEST_2, // Region
-                credentialsProvider);
+        try {
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    getApplicationContext(),
+                    "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
+                    Regions.US_WEST_2 // Region
+            );
 
-        dataset = syncClient.openOrCreateDataset("myDataset");
-        HashMap<String, String> testMap = new HashMap<>();
-        testMap.put("Yo","Yo");
-        testMap.put("New", "Push");
-        dataset.put("myKey", "hallo");
-        dataset.putAll(testMap);
-        dataset.synchronize(new DefaultSyncCallback() {
-            @Override
-            public void onSuccess(Dataset dataset, List newRecords) {
-                //Your handler code here
+            CognitoSyncManager syncClient = new CognitoSyncManager(
+                    getApplicationContext(),
+                    Regions.US_WEST_2, // Region
+                    credentialsProvider);
 
-
-            }
-        });
+            relayClass.pushToDB(relayClass.getRelay("TOTS Tuesay"), syncClient);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

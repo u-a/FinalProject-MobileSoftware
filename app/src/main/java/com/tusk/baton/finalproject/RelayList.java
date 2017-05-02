@@ -9,10 +9,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.com.google.gson.JsonElement;
+import com.amazonaws.com.google.gson.JsonObject;
+import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
+import com.amazonaws.mobileconnectors.cognito.Dataset;
+import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
+import com.amazonaws.regions.Regions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static android.R.attr.key;
 
 /**
  * Created by tomoestreich on 4/26/2017.
@@ -33,15 +48,106 @@ public class RelayList extends AppCompatActivity {
     private static final String[] runners = {"Richard Cheese", "Tom", "Sushant", "Karthik", "Ushan", "Elmo", "Barney", "Chuck Norris", "Bruce Lee", "Bob the Builder"
             , "Dave", "Pablo Esobar", "Lionel Messi", "Sam", "Seyam", "Bradley Cooper", "Henrik Lundqvist" };
     private static final int[] privacy = {Resources.PRIVACY_PUBLIC, Resources.PRIVACY_PRIVATE, Resources.PRIVACY_SPONSORED, Resources.PRIVACY_SPONSORED,Resources.PRIVACY_SPONSORED};
-
+    private Dataset dataset;
     //remove static modifier??
     public static HashMap<String,    String[]> relayValuesStatic;
 
+    private HashMap<String, String> returnedMap;
     private static RelayList instance = null;
 
 
     //private ArrayList<Relay> relayList;
-    private HashMap<String, Relay> relayHashMap;
+    public HashMap<String, Relay> relayHashMap;
+
+    public HashMap<String, String> pullFromDB(){
+
+
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
+                Regions.US_WEST_2 // Region
+        );
+
+        CognitoSyncManager syncClient = new CognitoSyncManager(
+                getApplicationContext(),
+                Regions.US_WEST_2, // Region
+                credentialsProvider);
+
+        dataset = syncClient.openOrCreateDataset("myDataset");
+//        HashMap<String, String> testMap = new HashMap<>();
+//        testMap.put("Yo","Yo");
+//        testMap.put("New", "Push");
+//        dataset.put("myKey", "hallo");
+//        dataset.putAll(testMap);
+         returnedMap = (HashMap<String, String>) dataset.getAll();
+        dataset.synchronize(new DefaultSyncCallback() {
+            @Override
+            public void onSuccess(Dataset dataset, List newRecords) {
+                //Your handler code here
+
+
+            }
+        });
+
+        return returnedMap;
+    }
+    public void pushToDB(Relay inputRelay, CognitoSyncManager syncClient) throws JSONException {
+
+
+
+        HashMap<String, String> convertedMap = new HashMap<>();
+        String keyVal = inputRelay.getTitle();
+        String picVal = inputRelay.getPicture() + "";
+//        String legVals = "~";
+//        ArrayList<Leg> legArrayList = inputRelay.getLegs();
+//        for(int i = 0; i < legArrayList.size(); i++){
+//           Leg temp =  legArrayList.get(i);
+//
+//
+//
+//
+//
+//        }
+//
+//        String encodedVals;
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.accumulate("Title", keyVal);
+        jsonObject.accumulate("Picture", picVal);
+        String sendShit = jsonObject.toString();
+
+
+
+//        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+//                getApplicationContext(),
+//                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
+//                Regions.US_WEST_2 // Region
+//        );
+//
+//        CognitoSyncManager syncClient = new CognitoSyncManager(
+//                getApplicationContext(),
+//                Regions.US_WEST_2, // Region
+//                credentialsProvider);
+
+        dataset = syncClient.openOrCreateDataset("myDataset");
+//        HashMap<String, String> testMap = new HashMap<>();
+//        testMap.put("Yo","Yo");
+//        testMap.put("New", "Push");
+//        dataset.put("myKey", "hallo");
+//        dataset.putAll(convertedMap);
+        dataset.put(keyVal, sendShit);
+        dataset.synchronize(new DefaultSyncCallback() {
+            @Override
+            public void onSuccess(Dataset dataset, List newRecords) {
+                //Your handler code here
+
+
+            }
+        });
+
+
+    }
 
     protected RelayList(){
 
@@ -56,6 +162,7 @@ public class RelayList extends AppCompatActivity {
         relayValuesStatic.put("LegTitles5", legTitles5);
         relayValuesStatic.put("Runners", runners);
         populateRelayList();
+        returnedMap = new HashMap<>();
     }
 
 
@@ -114,6 +221,7 @@ public class RelayList extends AppCompatActivity {
             }
             relayHashMap.put((relayValuesStatic.get("Titles"))[i], r);
         }
+
     }
 
 //    public void addRelay(String title, int picture, Leg[] legs, Runner[] runners, int privacy ){
