@@ -14,9 +14,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class CreateRelayActivity extends AppCompatActivity implements View.OnClickListener{
 
     static final String TAG = "CreateRelayActivity~~";
+    RelayList relayList;
     private boolean visible[];
     private LinearLayout layoutView[];
     private LinearLayout masterLayout;
@@ -30,6 +34,12 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_relay);
         initArrays();
+        updateVisibilities();
+        initViews();
+        relayList = RelayList.getInstance();
+    }
+
+    private void initViews() {
         masterLayout = (LinearLayout) findViewById(R.id.masterLayout);
         addLeg = (Button) findViewById(R.id.addLegButton);
         addLeg.setOnClickListener(this);
@@ -57,7 +67,6 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
         timeText[2] = (EditText) findViewById(R.id.time3Text);
         timeText[3] = (EditText) findViewById(R.id.time4Text);
 
-        updateVisibilities();
     }
 
     private void updateVisibilities() {
@@ -91,24 +100,30 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
 
         if (v.getId() == create.getId()) {
             int trueCount = 0;
-            
-//            for (int i = 0; i < visible.length; i++) {
-//                Log.d(TAG, "onClick: textfield1 loc="+locationText[i].getText().toString() + " time=" + timeText[i].getText().toString());
-//            }
-            
+
+            Relay r = new Relay();
+            r.setPrivacy(Resources.PRIVACY_PRIVATE);
+            r.setPicture(R.drawable.blankprofile);              //CHANGE THIS TO CAMERA INPUT
+            r.setTitle(titleText.getText().toString());
+            r.addRunner(new Runner("Ush", "asdf", 0, new Location("")));
             for (int i = 0; i < visible.length; i++) {
                 if (visible[i]) {
-                    Location loc = new Location("");
+                    String locationInput = locationText[i].getText().toString();
+                    Location loc;
+                    if (Resources.getLocationFromString(locationInput)!=null) {
+                        loc = new Location(Resources.getLocationFromString(locationInput));
+                    }
+                    else{
+                        loc = new Location(Resources.getLocationFromString("ushan's house"));
+                    }
 
                     Log.d(TAG, "onClick: textfield1 loc="+locationText[i].getText().toString() + " time=" + timeText[i].getText().toString());
-                    Leg l = new Leg();
+                    r.addLeg(new Leg(loc, new Date(), "", locationInput, ""));
                 }
             }
+            relayList.addRelay(r);
 
-//            String[] legs = new String[trueCount];
-//            for (int i = 0; i < trueCount; i++) {
-//                legs[i] =
-//            }
+            finish();
         }
     }
 }
