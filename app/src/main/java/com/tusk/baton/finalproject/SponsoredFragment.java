@@ -100,11 +100,11 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
 //        moreInfoText = (TextView) child.findViewById(R.id.more_info_text);
         cardStack.addView(child2);
         child2.setOnClickListener(this);
-
+*/
         ViewRelayFragment frag6 = new ViewRelayFragment();
         fragmentHashMap = new HashMap<>();
         fragmentHashMap.put(getResourceString(R.string.view_relay), frag6);
-        */
+
         return view;
     }
 
@@ -155,6 +155,17 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
+        if (cardList.containsKey(v.getId())) {
+            Fragment currentFragment = null;
+            currentFragment = fragmentHashMap.get(getResourceString(R.string.view_relay));
+            Bundle bundle = new Bundle();
+            String cardTitle = ((TextView) v.findViewById(R.id.info_text)).getText().toString();
+//            Log.d(TAG, "onClick: cardTitle="+cardTitle);
+            bundle.putString("title", cardTitle);
+            currentFragment.setArguments(bundle);
+            setFragment(currentFragment);
+        }
+        /*
         System.out.println(v.getId() + " " +  child1.getId());
         // GM
         if(v == child){
@@ -182,7 +193,7 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
             bundle.putString("title", "SpaceX Interview Day");
             currentFragment.setArguments(bundle);
             setFragment(currentFragment);
-        }
+        }*/
     }
 
     private void setFragment(Fragment inFrag) {

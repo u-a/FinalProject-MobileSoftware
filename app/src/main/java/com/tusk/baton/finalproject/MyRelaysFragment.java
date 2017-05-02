@@ -182,11 +182,11 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
             bundle.putString("title", "TOTS Tuesay");
             currentFragment.setArguments(bundle);
             setFragment(currentFragment);
-        }
+        }*/
 
         if (v.getId() == createButton.getId()) {
             mListener.onButtonClicked(0);
-        }*/
+        }
     }
 
     private void setFragment(Fragment inFrag) {
