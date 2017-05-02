@@ -40,8 +40,9 @@ public class MyAdapterLeg extends RecyclerView.Adapter<MyAdapterLeg.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Leg leg = legList.get(position);
         holder.name.setText(leg.getTitle());
-        holder.loc.setText("Location: " );
-        holder.time.setText("Time: ");
+        holder.loc.setText("Distance: " );
+        holder.time.setText(""+leg.getTime().toString().substring(0,
+                leg.getTime().toString().length() - 12 ));
 
     }
 

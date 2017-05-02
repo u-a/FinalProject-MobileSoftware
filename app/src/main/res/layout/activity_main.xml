@@ -16,8 +16,25 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        android:title="@string/app_name"
-        />
+        android:title="@string/app_name" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="30dp"
+            android:layout_marginLeft="250dp"
+            android:stateListAnimator="@null"
+
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:id="@+id/createRelayButton"
+
+            >
+
+        </Button>
+    </android.support.v7.widget.Toolbar>
+
 
     <ScrollView
         android:id="@+id/scrollItem"

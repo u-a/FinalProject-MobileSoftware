@@ -122,7 +122,7 @@ public class CreateRelayActivity extends AppCompatActivity implements View.OnCli
                 }
             }
             relayList.addRelay(r);
-
+            setResult(RESULT_OK);
             finish();
         }
     }

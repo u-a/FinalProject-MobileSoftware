@@ -43,9 +43,9 @@ public class RelayList extends AppCompatActivity {
     private static final String[] pictureTitles = {"tots", "soccer", "gm", "intel", "spacex"};
     private static final String[] legTitles1 = {"Meet at Richards house for wine and cheese", "Sing at TOTS", "Get Bennys", "Count Calories"};
     private static final String[] legTitles2 = {"Meet at the Drillfield", "Enjoy some soccer with the bros", "Deets ice cream! :)"};
-    private static final String[] legTitles3 = {"Info session @4pm", "Break for dinner with teams @6pm", "Dessert @ 7:30pm"};
-    private static final String[] legTitles4 = {"Info session @ 12pm", "Lunch with employees @1:30", "Group Interviews @ 3:30"};
-    private static final String[] legTitles5 = {"Info session @ 12pm", "Lunch with employees @1:30", "Individual Interviews @ 3:30"};
+    private static final String[] legTitles3 = {"Info session", "Break for dinner with teams @6pm", "Dessert"};
+    private static final String[] legTitles4 = {"Info session", "Lunch with employees", "Group Interviews"};
+    private static final String[] legTitles5 = {"Info session", "Lunch with employees", "Individual Interviews"};
     private static final String[] runners = {"Richard Cheese", "Tom", "Sushant", "Karthik", "Ushan", "Elmo", "Barney", "Chuck Norris", "Bruce Lee", "Bob the Builder"
             , "Dave", "Pablo Esobar", "Lionel Messi", "Sam", "Seyam", "Bradley Cooper", "Henrik Lundqvist" };
     private static final int[] privacy = {Resources.PRIVACY_PUBLIC, Resources.PRIVACY_PRIVATE, Resources.PRIVACY_SPONSORED, Resources.PRIVACY_SPONSORED,Resources.PRIVACY_SPONSORED};

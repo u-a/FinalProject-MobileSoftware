@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     private static final String TAG = "MainActivity~~";
     HashMap<String, Fragment> fragmentHashMap;
 
-
+    BottomNavigationView navigation;
     private Location currentLocation;
     private Toolbar myToolbar;
     private Intent userProfileIntent;
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
         gpsManager = new GPSManager(this);
         Log.d(TAG, "onCreate: GPSManager initialized");
-        createRelayButton = (Button) findViewById(R.id.createRelayButton);
 
 //        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
 //                getApplicationContext(),
@@ -148,11 +147,11 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.drawable.ic_dashboard_black_24dp);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        createRelayButton = (Button) findViewById(R.id.createRelayButton);
-//        createRelayButton.setOnClickListener(this);
+        createRelayButton = (Button) myToolbar.findViewById(R.id.createRelayButton);
+        createRelayButton.setOnClickListener(this);
 
         insertFrag = (LinearLayout) findViewById(R.id.linActMain);
     }
@@ -163,21 +162,16 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment currentFragment = null;
+            createRelayButton.setVisibility(View.VISIBLE);
             switch (item.getItemId()) {
                 case R.id.navigation_my_relays:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.my_relays));
-                    if (createRelayButton != null) createRelayButton.setVisibility(View.VISIBLE);
-                    else Log.d(TAG, "onNavigationItemSelected: button is null");
                     break;
                 case R.id.navigation_trending_relays:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.trending_relays));
-                    if (createRelayButton != null) createRelayButton.setVisibility(View.GONE);
-                    else Log.d(TAG, "onNavigationItemSelected: button is null");
                     break;
                 case R.id.navigation_sponsored:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.sponsored));
-                    if (createRelayButton != null) createRelayButton.setVisibility(View.GONE);
-                    else Log.d(TAG, "onNavigationItemSelected: button is null");
                     HashMap<String, String> mapp = relayClass.pullFromDB(syncClient);
                     for(String s: mapp.values()){
                         Log.d(TAG, "onNavigationItemSelected: mapp="+s);
@@ -280,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
             case R.id.user_profile:
                 Log.d(TAG, "User Profile");
                 System.out.println("Pressed User Profile");
-                System.out.println("Pressed User Profile");
                 if (user.getPictureUri() != null) {
                     System.out.println("Profile Pic:~ " + user.getPictureUri().toString());
                 }
@@ -318,7 +311,36 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
         if (v.getId() == createRelayButton.getId()) {
             Log.d(TAG, "onClick: button");
             Intent intent = new Intent(this, CreateRelayActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            FragmentManager fm = getSupportFragmentManager();
+            switch (navigation.getSelectedItemId()) {
+                case R.id.navigation_my_relays: {
+                    fm.beginTransaction().detach(fragmentHashMap.get(getResourceString(R.string.my_relays)))
+                            .attach(fragmentHashMap.get(getResourceString(R.string.my_relays))).commitAllowingStateLoss();
+                    System.out.println("My relays trigge~~: " );
+                }
+                    break;
+                case R.id.navigation_sponsored: {
+                    fm.beginTransaction().detach(fragmentHashMap.get(getResourceString(R.string.sponsored)))
+                            .attach(fragmentHashMap.get(getResourceString(R.string.sponsored))).commitAllowingStateLoss();
+
+                }
+                    break;
+                case R.id.navigation_trending_relays: {
+                    fm.beginTransaction().detach(fragmentHashMap.get(getResourceString(R.string.trending_relays)))
+                            .attach(fragmentHashMap.get(getResourceString(R.string.trending_relays))).commitAllowingStateLoss();
+                }
+                    break;
+            }
+
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

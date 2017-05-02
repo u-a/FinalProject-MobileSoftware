@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class ViewRelayFragment extends Fragment {
     private MyAdapterRunner mAdapterRunner;
     private MyAdapterLeg mAdapterLeg;
 
+    private Button createRelayButton;
+
     public ViewRelayFragment(){
         // Required empty public constructor
     }
@@ -58,6 +61,8 @@ public class ViewRelayFragment extends Fragment {
         String title = bundle.getString("title");
         Log.d(TAG, "onCreateView: title="+title);
 
+        createRelayButton = (Button) getActivity().findViewById(R.id.createRelayButton);
+        createRelayButton.setVisibility(View.GONE);
 
         child = getLayoutInflater(savedInstanceState).inflate(R.layout.relay_view_layout, null);
         titleView = (TextView) child.findViewById(R.id.title_text);

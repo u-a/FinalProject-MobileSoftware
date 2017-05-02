@@ -32,7 +32,6 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
     private OnFragmentInteractionListener mListener;
     private TextView mTextMessage;
     private TextView mSubTextMessage;
-    private Button createButton;
     RelayList relayList;
     LinearLayout cardStack;
     HashMap<Integer, View> cardList;                //this is a hashmap to make onClick easier to implement
@@ -55,8 +54,7 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
         relayList = RelayList.getInstance();
         view = inflater.inflate(R.layout.fragment_my_relays, container, false);
         cardStack = (LinearLayout) view.findViewById(R.id.cardStack);
-        createButton = (Button) view.findViewById(R.id.createRelayButton);
-        createButton.setOnClickListener(this);
+
         cardList = new HashMap<>();
 
 
@@ -183,9 +181,6 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
             setFragment(currentFragment);
         }*/
 
-        if (v.getId() == createButton.getId()) {
-            mListener.onButtonClicked(0);
-        }
     }
 
     private void setFragment(Fragment inFrag) {
