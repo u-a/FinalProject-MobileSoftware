@@ -243,23 +243,9 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
     public void updateGPSLocation(Location lastKnownLocation) {
         currentLocation = lastKnownLocation;
+        if(user != null)
+            user.setMyLocation(currentLocation);
 
-        if(frag1 != null){
-            frag1.setCurrentLoc(currentLocation);
-        }
-        if(frag2 != null){
-            frag2.setCurrentLocation(currentLocation);
-
-        }
-
-        if(frag3 != null){
-          frag3.setCurrentLocation(currentLocation);
-
-        }
-
-        if(frag4 != null){
-            frag4.setCurrentLocation(currentLocation);
-        }
 
 //        if (currentLocation!=null)
 //            Log.d(TAG, "updateGPSLocation: Lat="+lastKnownLocation.getLatitude() + " Long=" + lastKnownLocation.getLongitude());

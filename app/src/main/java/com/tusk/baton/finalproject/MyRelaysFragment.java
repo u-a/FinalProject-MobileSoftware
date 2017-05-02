@@ -42,10 +42,6 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
     Leg myLeg;
 
 
-
-    private Location currentLoc;
-
-
     public MyRelaysFragment() {
         // Required empty public constructor
     }
@@ -165,9 +161,6 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
             String cardTitle = ((TextView) v.findViewById(R.id.info_text)).getText().toString();
 //            Log.d(TAG, "onClick: cardTitle="+cardTitle);
             bundle.putString("title", cardTitle);
-//            bundle.putString("CURRENTLOCATION",currentLoc.toString());
-            bundle.putDouble("CURRENTLATITUDE", currentLoc.getLatitude());
-            bundle.putDouble("CURRENTLONGITUDE", currentLoc.getLongitude());
             currentFragment.setArguments(bundle);
             setFragment(currentFragment);
         }
@@ -203,14 +196,6 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
 
     public String getResourceString(int inRID) {
         return getResources().getString(inRID);
-    }
-
-    public Location getCurrentLoc() {
-        return currentLoc;
-    }
-
-    public void setCurrentLoc(Location currentLoc) {
-        this.currentLoc = currentLoc;
     }
 
     @Override

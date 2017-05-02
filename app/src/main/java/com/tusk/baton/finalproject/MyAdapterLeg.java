@@ -1,6 +1,8 @@
 package com.tusk.baton.finalproject;
 
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import java.util.List;
 public class MyAdapterLeg extends RecyclerView.Adapter<MyAdapterLeg.MyViewHolder> {
 
     private List<Leg> legList;
+    private User user;
+    private Location currentLocation;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, time, loc;
@@ -26,6 +30,9 @@ public class MyAdapterLeg extends RecyclerView.Adapter<MyAdapterLeg.MyViewHolder
 
     public MyAdapterLeg(List<Leg> legList) {
         this.legList = legList;
+        user = User.getInstance();
+        currentLocation = user.getMyLocation();
+        Log.d("DistanceTO", "LAT " + currentLocation.getLatitude() + " Long" + currentLocation.getLongitude() );
     }
 
     @Override
@@ -40,7 +47,7 @@ public class MyAdapterLeg extends RecyclerView.Adapter<MyAdapterLeg.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Leg leg = legList.get(position);
         holder.name.setText(leg.getTitle());
-        holder.loc.setText("Distance: " );
+        holder.loc.setText("Distance: " + ((int)leg.getLocation().distanceTo(currentLocation)) + " Meters");
         holder.time.setText(""+leg.getTime().toString().substring(0,
                 leg.getTime().toString().length() - 12 ));
 
