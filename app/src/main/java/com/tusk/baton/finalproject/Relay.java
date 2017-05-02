@@ -1,7 +1,13 @@
 package com.tusk.baton.finalproject;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static com.tusk.baton.finalproject.Resources.PRIVACY_PUBLIC;
@@ -12,6 +18,7 @@ import static com.tusk.baton.finalproject.Resources.PRIVACY_PUBLIC;
 
 public class Relay {
 
+    private static final String TAG = "Relay~~";
     private String title;
     private int picture;
     private ArrayList<Leg> legs;
@@ -81,4 +88,33 @@ public class Relay {
     public void setPrivacy(int privacy) {
         this.privacy = privacy;
     }
+
+    public String getJSONString() {
+        JSONObject jObj = new JSONObject();
+        try {
+            jObj.put("title", title);
+            jObj.put("picture", picture);
+            jObj.put("privacy", privacy);
+
+            ArrayList<String> legStringList = new ArrayList<>();
+            for (Leg iLeg: legs) {
+                legStringList.add(iLeg.getJSONString());
+            }
+            jObj.put("legs", new JSONArray(legStringList));
+
+            ArrayList<String> runnerStringList = new ArrayList<>();
+            for (Runner iRunner: runners) {
+                runnerStringList.add(iRunner.getJSONString());
+            }
+            jObj.put("runners", new JSONArray(runnerStringList));
+
+
+        } catch (JSONException e) {
+            Log.d(TAG, "getJSONString: parsing failed");
+            e.printStackTrace();
+            return null;
+        }
+        return jObj.toString();
+    }
+
 }

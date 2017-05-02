@@ -1,6 +1,10 @@
 package com.tusk.baton.finalproject;
 
 import android.location.Location;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 
@@ -12,6 +16,7 @@ import static com.tusk.baton.finalproject.Resources.CATEGORY_GAMEDAY;
 
 public class Leg {
 
+    private static final String TAG = "Leg~~";
     private Location myLocation;
     private String title;
     private String description;
@@ -19,7 +24,10 @@ public class Leg {
     private String category;
 
     public Leg() {
-        initialize(new Location(""), new Date(), CATEGORY_GAMEDAY, "", "");
+        Location l = new Location("");
+        l.setLatitude(0);
+        l.setLongitude(0);
+        initialize(l, new Date(), CATEGORY_GAMEDAY, "", "");
     }
 
     public Leg(Location inLocation, Date inTime, String inCategory, String inTitle, String inDescription) {
@@ -72,5 +80,22 @@ public class Leg {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getJSONString() {
+        JSONObject jObj = new JSONObject();
+        try {
+            jObj.put("title", title);
+            jObj.put("description", description);
+            jObj.put("category", category);
+            jObj.put("latitude", myLocation.getLatitude());
+            jObj.put("longitude", myLocation.getLongitude());
+            jObj.put("date", time.getTime());
+        } catch (JSONException e) {
+            Log.d(TAG, "getJSONString: parsing failed");
+            e.printStackTrace();
+            return null;
+        }
+        return jObj.toString();
     }
 }

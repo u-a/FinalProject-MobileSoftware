@@ -1,6 +1,7 @@
 package com.tusk.baton.finalproject;
 
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -91,52 +92,16 @@ public class RelayList extends AppCompatActivity {
 
         return returnedMap;
     }
-    public void pushToDB(Relay inputRelay, CognitoSyncManager syncClient) throws JSONException {
+    public void pushToDB(String relayName, String JSONString, CognitoSyncManager syncClient) throws JSONException {
+        String jsonFormattedString = JSONString.replace("\\", "");
 
-
-
-        HashMap<String, String> convertedMap = new HashMap<>();
-        String keyVal = inputRelay.getTitle();
-        String picVal = inputRelay.getPicture() + "";
-//        String legVals = "~";
-//        ArrayList<Leg> legArrayList = inputRelay.getLegs();
-//        for(int i = 0; i < legArrayList.size(); i++){
-//           Leg temp =  legArrayList.get(i);
-//
-//
-//
-//
-//
-//        }
-//
-//        String encodedVals;
-
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.accumulate("Title", keyVal);
-        jsonObject.accumulate("Picture", picVal);
-        String sendShit = jsonObject.toString();
-
-
-
-//        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-//                getApplicationContext(),
-//                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
-//                Regions.US_WEST_2 // Region
-//        );
-//
-//        CognitoSyncManager syncClient = new CognitoSyncManager(
-//                getApplicationContext(),
-//                Regions.US_WEST_2, // Region
-//                credentialsProvider);
-
-        dataset = syncClient.openOrCreateDataset("myDataset");
+        dataset = syncClient.openOrCreateDataset("Test2");
 //        HashMap<String, String> testMap = new HashMap<>();
 //        testMap.put("Yo","Yo");
 //        testMap.put("New", "Push");
 //        dataset.put("myKey", "hallo");
 //        dataset.putAll(convertedMap);
-        dataset.put(keyVal, sendShit);
+        dataset.put(relayName, jsonFormattedString);
         dataset.synchronize(new DefaultSyncCallback() {
             @Override
             public void onSuccess(Dataset dataset, List newRecords) {
@@ -209,14 +174,20 @@ public class RelayList extends AppCompatActivity {
             String legArrName = "LegTitles"+(i+1);
             String[] legArr = relayValuesStatic.get(legArrName);
             for (int j = 0; j < legArr.length; j++) {
-                Leg l = new Leg(null, new Date(), "", legArr[j], "");
+                Location loc = new Location("");
+                loc.setLatitude(0);
+                loc.setLongitude(0);
+                Leg l = new Leg(loc, new Date(), "", legArr[j], "");
                 r.addLeg(l);
             }
 
             //add 6 random runners
             for (int j = 0; j < 6; j++) {
+                Location loc = new Location("");
+                loc.setLatitude(0);
+                loc.setLongitude(0);
                 int index = (int) Math.floor(Math.random() * 17);
-                Runner tempRunner = new Runner((relayValuesStatic.get("Runners"))[index],"",0,null);
+                Runner tempRunner = new Runner((relayValuesStatic.get("Runners"))[index],"",0,loc);
                 r.addRunner(tempRunner);
             }
             relayHashMap.put((relayValuesStatic.get("Titles"))[i], r);

@@ -1,19 +1,27 @@
 package com.tusk.baton.finalproject;
 
 import android.location.Location;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Ushan on 4/26/2017.
  */
 
 public class Runner {
+    private static final String TAG = "Runner~~";
     private String name;
     private String id;
     private int checkedStatus;
     private Location currentLocation;
 
     public Runner() {
-        initialize("", "", 0, new Location(""));
+        Location l = new Location("");
+        l.setLatitude(0);
+        l.setLongitude(0);
+        initialize("", "", 0, l);
     }
 
     public Runner(String inName, String inID, int inStatus, Location inLocation) {
@@ -58,4 +66,21 @@ public class Runner {
     public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
     }
+
+    public String getJSONString() {
+        JSONObject jObj = new JSONObject();
+        try {
+            jObj.put("name", name);
+            jObj.put("id", id);
+            jObj.put("checkedstatus", checkedStatus);
+            jObj.put("latitude", currentLocation.getLatitude());
+            jObj.put("longitude", currentLocation.getLongitude());
+        } catch (JSONException e) {
+            Log.d(TAG, "getJSONString: parsing failed");
+            e.printStackTrace();
+            return null;
+        }
+        return jObj.toString();
+    }
+
 }

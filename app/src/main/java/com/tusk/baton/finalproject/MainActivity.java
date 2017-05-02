@@ -113,7 +113,10 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
                     Regions.US_WEST_2, // Region
                     credentialsProvider);
 
-            relayClass.pushToDB(relayClass.getRelay("TOTS Tuesay"), syncClient);
+            for (Relay iRelay : relayClass.getHashMap().values()) {
+//                relayClass.pushToDB(relayClass.getRelay("TOTS Tuesay"), syncClient);
+                relayClass.pushToDB(iRelay.getTitle(), iRelay.getJSONString(),syncClient);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
