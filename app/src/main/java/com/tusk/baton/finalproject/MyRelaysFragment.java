@@ -1,6 +1,7 @@
 package com.tusk.baton.finalproject;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,10 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
 //    View child1, child12;
     HashMap<String, Fragment> fragmentHashMap;
     Leg myLeg;
+
+
+
+    private Location currentLoc;
 
 
     public MyRelaysFragment() {
@@ -160,6 +165,9 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
             String cardTitle = ((TextView) v.findViewById(R.id.info_text)).getText().toString();
 //            Log.d(TAG, "onClick: cardTitle="+cardTitle);
             bundle.putString("title", cardTitle);
+//            bundle.putString("CURRENTLOCATION",currentLoc.toString());
+            bundle.putDouble("CURRENTLATITUDE", currentLoc.getLatitude());
+            bundle.putDouble("CURRENTLONGITUDE", currentLoc.getLongitude());
             currentFragment.setArguments(bundle);
             setFragment(currentFragment);
         }
@@ -195,6 +203,14 @@ public class MyRelaysFragment extends Fragment implements View.OnClickListener, 
 
     public String getResourceString(int inRID) {
         return getResources().getString(inRID);
+    }
+
+    public Location getCurrentLoc() {
+        return currentLoc;
+    }
+
+    public void setCurrentLoc(Location currentLoc) {
+        this.currentLoc = currentLoc;
     }
 
     @Override

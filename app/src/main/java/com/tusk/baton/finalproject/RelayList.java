@@ -5,6 +5,7 @@ import android.location.Location;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -74,7 +75,7 @@ public class RelayList extends AppCompatActivity {
 //                Regions.US_WEST_2, // Region
 //                credentialsProvider);
 
-        dataset = syncClient.openOrCreateDataset("Test2");
+        dataset = syncClient.openOrCreateDataset("Testing");
 //        HashMap<String, String> testMap = new HashMap<>();
 //        testMap.put("Yo","Yo");
 //        testMap.put("New", "Push");
@@ -95,7 +96,7 @@ public class RelayList extends AppCompatActivity {
     public void pushToDB(String relayName, String JSONString, CognitoSyncManager syncClient) throws JSONException {
         String jsonFormattedString = JSONString.replace("\\", "");
 
-        dataset = syncClient.openOrCreateDataset("Test2");
+        dataset = syncClient.openOrCreateDataset("Testing");
 //        HashMap<String, String> testMap = new HashMap<>();
 //        testMap.put("Yo","Yo");
 //        testMap.put("New", "Push");
@@ -108,6 +109,12 @@ public class RelayList extends AppCompatActivity {
                 //Your handler code here
 
 
+            }
+
+            @Override
+            public boolean onDatasetDeleted(Dataset dataset, String datasetName) {
+                Log.d("Deleted", "onDatasetDeleted was called and DefaultSyncCallback doesn't provide an implementation for it");
+                return false;
             }
         });
 

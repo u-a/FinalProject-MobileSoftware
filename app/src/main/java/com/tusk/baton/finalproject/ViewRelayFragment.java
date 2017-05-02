@@ -1,5 +1,6 @@
 package com.tusk.baton.finalproject;
 
+import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,8 +41,7 @@ public class ViewRelayFragment extends Fragment {
     private RecyclerView recyclerViewLeg;
     private MyAdapterRunner mAdapterRunner;
     private MyAdapterLeg mAdapterLeg;
-
-    private Button createRelayButton;
+//    private Location currentLocation;
 
     public ViewRelayFragment(){
         // Required empty public constructor
@@ -59,10 +58,12 @@ public class ViewRelayFragment extends Fragment {
         Bundle bundle;
         bundle = getArguments();
         String title = bundle.getString("title");
-        Log.d(TAG, "onCreateView: title="+title);
+//        currentLocation = new Location("");
+//        currentLocation.setLongitude(bundle.getDouble("CURRENTLONGITUDE"));
+//        currentLocation.setLatitude(bundle.getDouble("CURRENTLATITUDE"));
 
-        createRelayButton = (Button) getActivity().findViewById(R.id.createRelayButton);
-        createRelayButton.setVisibility(View.GONE);
+//        Log.d(TAG, "onCreateView: Latitude" + currentLocation.getLatitude() + " Longitude " + currentLocation.getLongitude());
+        Log.d(TAG, "onCreateView: title="+title);
 
         child = getLayoutInflater(savedInstanceState).inflate(R.layout.relay_view_layout, null);
         titleView = (TextView) child.findViewById(R.id.title_text);
@@ -76,6 +77,16 @@ public class ViewRelayFragment extends Fragment {
 
         recyclerViewRunner = (RecyclerView) child.findViewById(R.id.recycler_view);
         recyclerViewLeg= (RecyclerView) child.findViewById(R.id.recycler_view_legs);
+
+        ArrayList<Location> locationArrayList = new ArrayList<>();
+        int i = 0;
+        while(i < tempRelay.getLegs().size()){
+            locationArrayList.add(i, tempRelay.getLegs().get(i).getLocation());
+            Log.d("LOCATIONS", locationArrayList.get(i).toString());
+            i++;
+        }
+
+
 
         mAdapterRunner = new MyAdapterRunner(runnerList);
         mAdapterLeg = new MyAdapterLeg(legList);
@@ -99,7 +110,6 @@ public class ViewRelayFragment extends Fragment {
         imageView.setImageResource(tempRelay.getPicture());
 
         linearRelay.addView(child);
-
 
         return view;
     }

@@ -103,5 +103,11 @@ public class User {
         this.pictureUri = pictureUri;
     }
 
+    public Location getMyLocation() {
+        return myLocation;
+    }
 
+    public void setMyLocation(Location myLocation) {
+        this.myLocation = myLocation;
+    }
 }

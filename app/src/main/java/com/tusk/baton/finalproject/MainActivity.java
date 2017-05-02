@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     public Dataset dataset;
     private CognitoSyncManager syncClient;
 
+    MyRelaysFragment frag1;
+    TrendingRelaysFragment frag2;
+    TrendingLocationsFragment frag3;
+    SponsoredFragment frag4;
+    SearchFragment frag5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,11 +130,11 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     }
 
     private void initFragments() {
-        MyRelaysFragment frag1 = new MyRelaysFragment();
-        TrendingRelaysFragment frag2 = new TrendingRelaysFragment();
-        TrendingLocationsFragment frag3 = new TrendingLocationsFragment();
-        SponsoredFragment frag4 = new SponsoredFragment();
-        SearchFragment frag5 = new SearchFragment();
+        frag1 = new MyRelaysFragment();
+        frag2 = new TrendingRelaysFragment();
+        frag3 = new TrendingLocationsFragment();
+        frag4 = new SponsoredFragment();
+        frag5 = new SearchFragment();
 
         fragmentHashMap = new HashMap<>();
         fragmentHashMap.put(getResourceString(R.string.my_relays), frag1);
@@ -237,6 +243,24 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
     public void updateGPSLocation(Location lastKnownLocation) {
         currentLocation = lastKnownLocation;
+
+        if(frag1 != null){
+            frag1.setCurrentLoc(currentLocation);
+        }
+        if(frag2 != null){
+            frag2.setCurrentLocation(currentLocation);
+
+        }
+
+        if(frag3 != null){
+          frag3.setCurrentLocation(currentLocation);
+
+        }
+
+        if(frag4 != null){
+            frag4.setCurrentLocation(currentLocation);
+        }
+
 //        if (currentLocation!=null)
 //            Log.d(TAG, "updateGPSLocation: Lat="+lastKnownLocation.getLatitude() + " Long=" + lastKnownLocation.getLongitude());
     }

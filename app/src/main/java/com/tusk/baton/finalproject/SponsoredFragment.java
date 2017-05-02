@@ -3,6 +3,7 @@ package com.tusk.baton.finalproject;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
     private OnFragmentInteractionListener mListener;
     private TextView mTextMessage;
     private TextView mSubTextMessage;
+    private Location currentLocation;
     RelayList relayList;
     LinearLayout cardStack;
     View view;
@@ -127,6 +129,14 @@ public class SponsoredFragment extends Fragment implements View.OnClickListener,
 
     public String getResourceString(int inRID) {
         return getResources().getString(inRID);
+    }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

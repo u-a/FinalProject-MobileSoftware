@@ -1,6 +1,7 @@
 package com.tusk.baton.finalproject;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,11 +19,19 @@ import android.view.ViewGroup;
 public class TrendingLocationsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private Location currentLocation;
 
     public TrendingLocationsFragment() {
         // Required empty public constructor
     }
 
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

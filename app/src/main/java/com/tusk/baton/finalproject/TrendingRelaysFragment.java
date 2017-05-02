@@ -1,6 +1,7 @@
 package com.tusk.baton.finalproject;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
     private OnFragmentInteractionListener mListener;
     private TextView mTextMessage;
     private TextView mSubTextMessage;
+    private Location currentLocation;
     RelayList relayList;
     LinearLayout cardStack;
     View view;
@@ -122,6 +124,14 @@ public class TrendingRelaysFragment extends Fragment implements View.OnClickList
         fragmentHashMap = new HashMap<>();
         fragmentHashMap.put(getResourceString(R.string.view_relay), frag6);
         return view;
+    }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
     }
 
     public View getCard(View child, Relay inRelay){

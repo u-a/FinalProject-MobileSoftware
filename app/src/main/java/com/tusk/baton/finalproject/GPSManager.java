@@ -27,6 +27,8 @@ public class GPSManager implements LocationListener{
         locationManager = (LocationManager) inMain.getSystemService(Context.LOCATION_SERVICE);
     }
 
+
+
     public void register() {
         if (ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
