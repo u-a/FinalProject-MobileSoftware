@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
@@ -11,6 +12,7 @@
         card_view:cardCornerRadius="15dp"
         card_view:cardElevation="2dp"
         card_view:cardBackgroundColor ="@color/cardview_shadow_end_color"
+
         >
 
         <LinearLayout
@@ -40,37 +42,49 @@
                 android:layout_height="match_parent"
                 android:text="Legs:"
                 android:textSize="20dp"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textStyle="bold"
+                />
 
-            <ScrollView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_legs"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".1">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:text="Location \nlocation \nlocation\nlocation\nlocation\nlocation\nlocation\nlocation\nlocation"
-                    android:id="@+id/leg_text"
-                    android:gravity="center"/>
-            </ScrollView>
+                android:layout_height="wrap_content"
+
+                />
+
             <TextView
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Runners:"
+                android:textStyle="bold"
                 android:textSize="20dp"
                 android:gravity="center" />
-            <ScrollView
+
+            <!-- A RecyclerView with some commonly used attributes -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".1">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:text="Location \nlocation \nlocation\nlocation\nlocation\nlocation\nlocation\nlocation\nlocation"
-                    android:id="@+id/runner_text"
-                    android:gravity="center"/>
-            </ScrollView>
+                android:layout_height="wrap_content"
+
+                />
+
+            <!--<ScrollView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight=".1">-->
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:text="Location \nlocation \nlocation\nlocation\nlocation\nlocation\nlocation\nlocation\nlocation"-->
+                    <!--android:id="@+id/runner_text"-->
+                    <!--android:gravity="center"/>-->
+            <!--</ScrollView>-->
+            <!---->
+
             <TextView
                 android:id="@+id/privacy_text"
                 android:padding="16dp"

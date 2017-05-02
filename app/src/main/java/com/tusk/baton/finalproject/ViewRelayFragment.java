@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tomoestreich on 4/26/2017.
@@ -27,6 +33,14 @@ public class ViewRelayFragment extends Fragment {
     TextView titleView, legView, runnerView;
     ImageView imageView;
 
+    private List<Runner> runnerList = new ArrayList<>();
+    private List<Leg> legList = new ArrayList<>();
+
+    private RecyclerView recyclerViewRunner;
+    private RecyclerView recyclerViewLeg;
+    private MyAdapterRunner mAdapterRunner;
+    private MyAdapterLeg mAdapterLeg;
+
     public ViewRelayFragment(){
         // Required empty public constructor
     }
@@ -35,6 +49,7 @@ public class ViewRelayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_relay_view, container, false);
+
         linearRelay = (LinearLayout) view.findViewById(R.id.linearRelay);
         relayList = RelayList.getInstance();
         tempRelay = new Relay();
@@ -42,32 +57,45 @@ public class ViewRelayFragment extends Fragment {
         bundle = getArguments();
         String title = bundle.getString("title");
         Log.d(TAG, "onCreateView: title="+title);
-        
+
+
         child = getLayoutInflater(savedInstanceState).inflate(R.layout.relay_view_layout, null);
         titleView = (TextView) child.findViewById(R.id.title_text);
-        legView = (TextView) child.findViewById(R.id.leg_text);
-        runnerView = (TextView) child.findViewById(R.id.runner_text);
         imageView = (ImageView) child.findViewById(R.id.eventImage);
+
         tempRelay = relayList.getRelay(title);
         titleView.setText(title);
 
-        Leg[] leg = tempRelay.getLegs().toArray(new Leg[tempRelay.getLegs().size()]);
-        String legFinal = "";
-        for(int i = 0; i < leg.length; i++){
-            legFinal = legFinal + "\n" + leg[i].getTitle() + "\n";
-        }
-        legView.setText(legFinal);
+        legList = tempRelay.getLegs();
+        runnerList = tempRelay.getRunners();
 
-        Runner[] run = tempRelay.getRunners().toArray(new Runner[tempRelay.getRunners().size()]);
-        String runFinal = "";
-        for(int i = 0; i < run.length; i++){
-            runFinal = runFinal + "\n" + run[i].getName() + "\n";
-        }
-        runnerView.setText(runFinal);
+        recyclerViewRunner = (RecyclerView) child.findViewById(R.id.recycler_view);
+        recyclerViewLeg= (RecyclerView) child.findViewById(R.id.recycler_view_legs);
+
+        mAdapterRunner = new MyAdapterRunner(runnerList);
+        mAdapterLeg = new MyAdapterLeg(legList);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManagerLeg = new LinearLayoutManager(getActivity().getApplicationContext());
+
+        recyclerViewRunner.setLayoutManager(mLayoutManager);
+        recyclerViewRunner.addItemDecoration(new LineDivider(getActivity().getApplicationContext()));
+        recyclerViewRunner.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewRunner.setAdapter(mAdapterRunner);
+
+        recyclerViewLeg.setLayoutManager(mLayoutManagerLeg);
+        recyclerViewLeg.addItemDecoration(new LineDivider(getActivity().getApplicationContext()));
+        recyclerViewLeg.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewLeg.setAdapter(mAdapterLeg);
+
+        mAdapterLeg.notifyDataSetChanged();
+        mAdapterRunner.notifyDataSetChanged();
 
         imageView.setImageResource(tempRelay.getPicture());
 
         linearRelay.addView(child);
+
+
         return view;
     }
 
