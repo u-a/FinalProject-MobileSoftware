@@ -90,6 +90,7 @@ public class Relay {
     }
 
     public String getJSONString() {
+
         JSONObject jObj = new JSONObject();
         try {
             jObj.put("title", title);
@@ -100,7 +101,13 @@ public class Relay {
             for (Leg iLeg: legs) {
                 legStringList.add(iLeg.getJSONString());
             }
-            jObj.put("legs", new JSONArray(legStringList));
+
+            JSONArray jarr = new JSONArray(legStringList);
+//            for (int i = 0; i < legStringList.size(); i++) {
+//                jarr.put(i,legStringList.get(i));
+//            }
+//            Log.d(TAG, "getJSONString: jarr="+jarr.toString());
+            jObj.put("legs", jarr);
 
             ArrayList<String> runnerStringList = new ArrayList<>();
             for (Runner iRunner: runners) {
@@ -115,6 +122,35 @@ public class Relay {
             return null;
         }
         return jObj.toString();
+    }
+
+//    private JSONArray
+
+    public void setFromJSON(JSONObject jObj) {
+        try {
+            Log.d(TAG, "setFromJSON: jobj="+jObj.toString());
+            title = jObj.getString("title");
+            picture = jObj.getInt("picture");
+            privacy = jObj.getInt("privacy");
+
+//            JSONArray legArray = jObj.getJSONArray("legs");
+////            JSONArray legArray2 = new JSONArray("[{\\\"title\\\":\\\"Meet at Richards house for wine and cheese\\\",\\\"description\\\":\\\"\\\",\\\"category\\\":\\\"\\\",\\\"latitude\\\":0,\\\"longitude\\\":0,\\\"date\\\":1493712378748},{\\\"title\\\":\\\"Sing at TOTS\\\",\\\"description\\\":\\\"\\\",\\\"category\\\":\\\"\\\",\\\"latitude\\\":0,\\\"longitude\\\":0,\\\"date\\\":1493712378748},{\\\"title\\\":\\\"Get Bennys\\\",\\\"description\\\":\\\"\\\",\\\"category\\\":\\\"\\\",\\\"latitude\\\":0,\\\"longitude\\\":0,\\\"date\\\":1493712378748},{\\\"title\\\":\\\"Count Calories\\\",\\\"description\\\":\\\"\\\",\\\"category\\\":\\\"\\\",\\\"latitude\\\":0,\\\"longitude\\\":0,\\\"date\\\":1493712378748}]");
+//            Log.d(TAG, "setFromJSON: legarray="+legArray.toString());
+//            for (int i = 0; i < legArray.length(); i++) {
+//                Leg l = new Leg();
+//                Log.d(TAG, "setFromJSON: legArray[i]="+legArray.getJSONObject(i));
+//                l.setFromJSON(legArray.getJSONObject(i));
+//            }
+
+            JSONArray runnerArray = jObj.getJSONArray("runners");
+            for (int i = 0; i < runnerArray.length(); i++) {
+                Runner r = new Runner();
+                r.setFromJSON(runnerArray.getJSONObject(i));
+            }
+        } catch (JSONException e) {
+            Log.d(TAG, "setFromJSONString: parsing failed");
+            e.printStackTrace();
+        }
     }
 
 }

@@ -121,7 +121,9 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
 
             for (Relay iRelay : relayClass.getHashMap().values()) {
 //                relayClass.pushToDB(relayClass.getRelay("TOTS Tuesay"), syncClient);
-                relayClass.pushToDB(iRelay.getTitle(), iRelay.getJSONString(),syncClient);
+                String outJSon = iRelay.getJSONString();
+                Log.d(TAG, "onCreate: jsonString="+outJSon);
+                relayClass.pushToDB(iRelay.getTitle(), outJSon,syncClient);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -179,9 +181,12 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
                 case R.id.navigation_sponsored:
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.sponsored));
                     HashMap<String, String> mapp = relayClass.pullFromDB(syncClient);
-                    for(String s: mapp.values()){
-                        Log.d(TAG, "onNavigationItemSelected: mapp="+s);
-                    }
+                    relayClass.updateRelayListWithJSON(mapp);
+//                    int ii = 0;
+//                    for(String s: mapp.values()){
+//                        ii++;
+//                        Log.d(TAG, "onNavigationItemSelected: mapp"+ii+"="+s);
+//                    }
                     break;
 //                case R.id.navigation_search:
 //                    currentFragment = fragmentHashMap.get(getResourceString(R.string.search));

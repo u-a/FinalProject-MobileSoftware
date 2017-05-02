@@ -83,4 +83,19 @@ public class Runner {
         return jObj.toString();
     }
 
+    public void setFromJSON(JSONObject jObj) {
+        try {
+            name = jObj.getString("name");
+            id = jObj.getString("id");
+            checkedStatus = jObj.getInt("checkedstatus");
+            int locLat = jObj.getInt("latitude");
+            int locLong = jObj.getInt("longitude");
+            currentLocation.setLatitude(locLat);
+            currentLocation.setLongitude(locLong);
+        } catch (JSONException e) {
+            Log.d(TAG, "setFromJSON: parsing failed");
+            e.printStackTrace();
+        }
+    }
+
 }

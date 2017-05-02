@@ -98,4 +98,20 @@ public class Leg {
         }
         return jObj.toString();
     }
+
+    public void setFromJSON(JSONObject jObj) {
+        try {
+            title = jObj.getString("title");
+            description = jObj.getString("title");
+            category = jObj.getString("category");
+            int locLat = jObj.getInt("latitude");
+            int locLong = jObj.getInt("longitude");
+            myLocation.setLatitude(locLat);
+            myLocation.setLongitude(locLong);
+            time.setTime(jObj.getInt("date"));
+        } catch (JSONException e) {
+            Log.d(TAG, "setFromJSON: parsing failed");
+            e.printStackTrace();
+        }
+    }
 }
