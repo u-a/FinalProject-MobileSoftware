@@ -60,21 +60,21 @@ public class RelayList extends AppCompatActivity {
     //private ArrayList<Relay> relayList;
     public HashMap<String, Relay> relayHashMap;
 
-    public HashMap<String, String> pullFromDB(){
+    public HashMap<String, String> pullFromDB(CognitoSyncManager syncClient){
 
 
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),
-                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
-                Regions.US_WEST_2 // Region
-        );
+//        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+//                getApplicationContext(),
+//                "us-west-2:ac6c2702-ddb5-4331-b515-a7097beae30c", // Identity Pool ID
+//                Regions.US_WEST_2 // Region
+//        );
+//
+//        CognitoSyncManager syncClient = new CognitoSyncManager(
+//                getApplicationContext(),
+//                Regions.US_WEST_2, // Region
+//                credentialsProvider);
 
-        CognitoSyncManager syncClient = new CognitoSyncManager(
-                getApplicationContext(),
-                Regions.US_WEST_2, // Region
-                credentialsProvider);
-
-        dataset = syncClient.openOrCreateDataset("myDataset");
+        dataset = syncClient.openOrCreateDataset("Test2");
 //        HashMap<String, String> testMap = new HashMap<>();
 //        testMap.put("Yo","Yo");
 //        testMap.put("New", "Push");

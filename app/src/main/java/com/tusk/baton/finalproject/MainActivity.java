@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
     private GPSManager gpsManager;
     private Button createRelayButton;
     public Dataset dataset;
+    private CognitoSyncManager syncClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
                     Regions.US_WEST_2 // Region
             );
 
-            CognitoSyncManager syncClient = new CognitoSyncManager(
+            syncClient = new CognitoSyncManager(
                     getApplicationContext(),
                     Regions.US_WEST_2, // Region
                     credentialsProvider);
@@ -177,6 +178,10 @@ public class MainActivity extends AppCompatActivity implements MyRelaysFragment.
                     currentFragment = fragmentHashMap.get(getResourceString(R.string.sponsored));
                     if (createRelayButton != null) createRelayButton.setVisibility(View.GONE);
                     else Log.d(TAG, "onNavigationItemSelected: button is null");
+                    HashMap<String, String> mapp = relayClass.pullFromDB(syncClient);
+                    for(String s: mapp.values()){
+                        Log.d(TAG, "onNavigationItemSelected: mapp="+s);
+                    }
                     break;
 //                case R.id.navigation_search:
 //                    currentFragment = fragmentHashMap.get(getResourceString(R.string.search));
